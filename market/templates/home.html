@@ -1,0 +1,247 @@
+{% extends "base.html" %} {% block title %}Home{% endblock %}
+{% block content %}
+<style>
+    .icon-circle {
+        width: 50px;
+        /* Circle size */
+        height: 50px;
+        border-radius: 50%;
+        /* Make it round */
+        font-size: 1.4rem;
+        /* Icon size */
+    }
+</style>
+<div class="main-content app-content" style="min-height: 100vh">
+    <div class="container-fluid">
+        <!-- Page Header -->
+        <div class="d-md-flex d-block align-items-center justify-content-between my-4 page-header-breadcrumb">
+            <div class="my-auto">
+                <h5 class="page-title fs-21 mb-1">Home</h5>
+                <nav>
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item">
+                            <a href="javascript:void(0);">Pages</a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">
+                            Home
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+
+        <!-- Page Header Close -->
+
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card custom-card">
+                    <div class="card-header">
+                        <div class="card-title" style="
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                width: 100%;
+              ">
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <center>
+                            <img src="../static/homelogo.png" alt="">
+                            <h3>Welcome to <b>"Fruits and Vegetables Price Forecasting"</b></h3>
+                        </center>
+                        <div class="container" style="text-indent: 50px; text-align: justify;">
+                            <h6>Our Vegetable and Fruits Price Forecasting System offers reliable price predictions for
+                                vegetables and fruits in Metro Manila and nearby provinces, based on data from the World
+                                Food Programme. By analyzing market trends, it helps farmers, traders, and consumers
+                                anticipate price changes, enabling smarter decisions for harvesting, selling, and
+                                budgeting.</h6>
+                        </div>
+                        <center><button class="btn btn-primary" disabled><i class="bi bi-geo-alt-fill"></i> Covering
+                                Metro Manila & Adjacent Provinces</button></center>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 col-xl-4">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <center>
+                                <div class="feature mt-0 mb-0">
+                                    <div
+                                        class="icon-circle bg-info bg-opacity-25 text-info d-flex align-items-center justify-content-center">
+                                        <i class="bi bi-bar-chart-fill"></i>
+                                    </div>
+                                </div>
+                            </center>
+                        </div>
+                        <div class="col">
+                            <br>
+                            <center><strong>PRICE PREDICTIONS</strong></center>
+                            <center>
+                                <p style="text-align: justify; text-indent: 30px;">Our advanced forecasting system
+                                    analyzes historical price data, seasonal patterns,
+                                    weather conditions, and market trends to predict vegetable and fruit prices with
+                                    average accuracy using Linear Regression. The system provides short-term and
+                                    medium-term forecasts.</p>
+                            </center>
+                        </div>
+                        <div class="col-auto align-self-center">
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 col-xl-4">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <center>
+                                <div class="feature mt-0 mb-0">
+                                    <div
+                                        class="icon-circle bg-danger bg-opacity-25 text-danger d-flex align-items-center justify-content-center">
+                                        <i class="bi bi-geo-alt-fill"></i>
+                                    </div>
+                                </div>
+                            </center>
+                        </div>
+                        <div class="col">
+                            <br>
+                            <center><strong>REGIONAL COVERAGE</strong></center>
+                            <center>
+                                <p style="text-align: justify; text-indent: 30px;">Specialized focus on Metro Manila and
+                                    surrounding provinces including Bulacan, Rizal, Laguna, and Cavite. Our system
+                                    understands the unique market dynamics and supply chain patterns of the National
+                                    Capital Region and its agricultural suppliers.</p>
+                            </center>
+                        </div>
+                        <div class="col-auto align-self-center">
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12 col-xl-4">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <center>
+                                <div class="feature mt-0 mb-0">
+                                    <div
+                                        class="icon-circle bg-success bg-opacity-25 text-success d-flex align-items-center justify-content-center">
+                                        <i class="bi bi-graph-up-arrow"></i>
+                                    </div>
+                                </div>
+                            </center>
+                        </div>
+                        <div class="col">
+                            <br>
+                            <center><strong>DATA-DRIVEN INSIGHTS</strong></center>
+                            <center>
+                                <p style="text-align: justify; text-indent: 30px;">Utilizing machine learning algorithms
+                                    and statistical models, our system processes vast amounts of market data, weather
+                                    information, and economic indicators to generate reliable price forecasts for over
+                                    20 common vegetables and fruits.</p>
+                            </center>
+                        </div>
+                        <div class="col-auto align-self-center">
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card custom-card">
+                <div class="card-header">
+                    <div class="card-title" style="
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                width: 100%;
+              ">
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    <center>
+                        <h5><b>COVERAGE AREAS</b></h5>
+                    </center>
+                    <div class="container" style="text-indent: 50px; text-align: justify;">
+                        <h6>Our Vegetable and Fruits Price Forecasting System covers the major markets and trading
+                            centers across Metro Manila and strategically important nearby provinces.</h6>
+                        <br>
+                    </div>
+                    <div class="row g-3">
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-2">
+                            <div class="container py-2 rounded bg-primary bg-opacity-25 mb-3 text-center">
+                                <strong class="mb-0 d-block">METRO MANILA</strong>
+                                <span class="d-block">Primary coverage including major markets like
+                                    Divisoria, Balintawak, and Marikina</span>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-2">
+                            <div class="container py-2 rounded bg-danger bg-opacity-25 mb-3 text-center">
+                                <strong class="mb-0 d-block">BULACAN</strong>
+                                <span class="d-block">Agricultural supplier region with major vegetable
+                                    production areas and significant crop yield potential.
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-2">
+                            <div class="container py-2 rounded bg-info bg-opacity-25 mb-3 text-center">
+                                <strong class="mb-0 d-block">RIZAL</strong>
+                                <span class="d-block">Key supply route province with important trading centers
+                                    facilitating commerce.
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-2">
+                            <div class="container py-2 rounded bg-warning bg-opacity-25 mb-3 text-center">
+                                <strong class="mb-0 d-block">LAGUNA</strong>
+                                <span class="d-block">Major fruit and vegetable growing region south of Metro Manila
+                                    with abundant farms.
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-2">
+                            <div class="container py-2 rounded bg-teal bg-opacity-25 mb-3 text-center">
+                                <strong class="mb-0 d-block">CAVITE</strong>
+                                <span class="d-block">Significant province playing a vital role in
+                                    contributing to the NCR's food supply.
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-2">
+                            <div class="container py-2 rounded bg-success bg-opacity-25 mb-3 text-center">
+                                <strong class="mb-0 d-block">PAMPANGA</strong>
+                                <span class="d-block">Important agricultural region known for rice and vegetable production
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+</div>
+
+{% endblock%}

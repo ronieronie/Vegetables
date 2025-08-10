@@ -1,0 +1,478 @@
+{% extends "base.html" %} {% block title %}Price List & Forecasting{% endblock %}
+{% block content %}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css" />
+<link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.bootstrap.min.css" />
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.bootstrap5.min.css" />
+<script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>
+<div class="main-content app-content" style="min-height: 100vh">
+    <div class="container-fluid">
+        <!-- Page Header -->
+        <div class="d-md-flex d-block align-items-center justify-content-between my-4 page-header-breadcrumb">
+            <div class="my-auto">
+                <h5 class="page-title fs-21 mb-1">Price List</h5>
+                <nav>
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item">
+                            <a href="javascript:void(0);">Pages</a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">
+                            Price List
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+
+        <!-- Page Header Close -->
+
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card custom-card">
+                    <div class="card-header">
+                        <div class="card-title" style="
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                width: 100%;
+              ">
+                            <span>COMMODITY PRICES </span>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <p style="text-indent: 30px">
+                            Welcome to the Market Prices page, where you can explore
+                            up-to-date pricing information for a variety of essential
+                            commodities such as fruits, vegetables, and other agricultural
+                            products. This tool is designed to help consumers, vendors, and
+                            researchers stay informed about current market trends. Use the
+                            interactive table below to view detailed prices, forecast future
+                            trends, and access more information about each item. The data is
+                            presented clearly and updated regularly to support smarter
+                            decision-making and better market awareness.
+                        </p>
+
+                        <div class="table-responsive" style="padding: 5px">
+                            <table id="market_table" class="table table-bordered text-nowrap w-100">
+                                <thead>
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>Commodity</th>
+                                        <th>Price</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="col-xxl-6 col-xl-6 col-lg-12">
+      <h6 class="mb-3">Using Grid Markups:</h6>
+      <div class="row row-cols-12">
+        
+        <div class="col">
+          <div class="card custom-card">
+            <div class="card-body">
+              <img
+                src="../static/commodities/garlic.jpg"
+                class="card-img mb-3"
+                alt="..."
+              />
+              <h6 class="card-title fw-semibold">GARLIC</h6>
+              <p class="card-text">
+                Garlic is a staple commodity, widely valued for its flavor and
+                everyday use.
+
+                <br>
+                <strong>Price:</strong> ₱240.00
+              </p>
+              <button class="btn btn-sm btn-primary edit-btn" id="edit_btn">
+                <i class="bi bi-bar-chart-fill me-1"></i> Forecast
+              </button>
+              <button class="btn btn-sm btn-info more-info-btn">
+                <i class="bi bi-info-circle-fill me-1"></i> More Info
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card custom-card">
+            <div class="card-body">
+              <img
+                src="../static/commodities/garlic.jpg"
+                class="card-img mb-3"
+                alt="..."
+              />
+              <h6 class="card-title fw-semibold">GARLIC</h6>
+              <p class="card-text">
+                Garlic is a staple commodity, widely valued for its flavor and
+                everyday use.
+
+                <br>
+                <strong>Price:</strong> ₱240.00
+              </p>
+              <button class="btn btn-sm btn-primary edit-btn" id="edit_btn">
+                <i class="bi bi-bar-chart-fill me-1"></i> Forecast
+              </button>
+              <button class="btn btn-sm btn-info more-info-btn">
+                <i class="bi bi-info-circle-fill me-1"></i> More Info
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card custom-card">
+            <div class="card-body">
+              <img
+                src="../static/commodities/garlic.jpg"
+                class="card-img mb-3"
+                alt="..."
+              />
+              <h6 class="card-title fw-semibold">GARLIC</h6>
+              <p class="card-text">
+                Garlic is a staple commodity, widely valued for its flavor and
+                everyday use.
+
+                <br>
+                <strong>Price:</strong> ₱240.00
+              </p>
+              <button class="btn btn-sm btn-primary edit-btn" id="edit_btn">
+                <i class="bi bi-bar-chart-fill me-1"></i> Forecast
+              </button>
+              <button class="btn btn-sm btn-info more-info-btn">
+                <i class="bi bi-info-circle-fill me-1"></i> More Info
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card custom-card">
+            <div class="card-body">
+              <img
+                src="../static/commodities/garlic.jpg"
+                class="card-img mb-3"
+                alt="..."
+              />
+              <h6 class="card-title fw-semibold">GARLIC</h6>
+              <p class="card-text">
+                Garlic is a staple commodity, widely valued for its flavor and
+                everyday use.
+
+                <br>
+                <strong>Price:</strong> ₱240.00
+              </p>
+              <button class="btn btn-sm btn-primary edit-btn" id="edit_btn">
+                <i class="bi bi-bar-chart-fill me-1"></i> Forecast
+              </button>
+              <button class="btn btn-sm btn-info more-info-btn">
+                <i class="bi bi-info-circle-fill me-1"></i> More Info
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card custom-card">
+            <div class="card-body">
+              <img
+                src="../static/commodities/garlic.jpg"
+                class="card-img mb-3"
+                alt="..."
+              />
+              <h6 class="card-title fw-semibold">GARLIC</h6>
+              <p class="card-text">
+                Garlic is a staple commodity, widely valued for its flavor and
+                everyday use.
+
+                <br>
+                <strong>Price:</strong> ₱240.00
+              </p>
+              <button class="btn btn-sm btn-primary edit-btn" id="edit_btn">
+                <i class="bi bi-bar-chart-fill me-1"></i> Forecast
+              </button>
+              <button class="btn btn-sm btn-info more-info-btn">
+                <i class="bi bi-info-circle-fill me-1"></i> More Info
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card custom-card">
+            <div class="card-body">
+              <img
+                src="../static/commodities/garlic.jpg"
+                class="card-img mb-3"
+                alt="..."
+              />
+              <h6 class="card-title fw-semibold">GARLIC</h6>
+              <p class="card-text">
+                Garlic is a staple commodity, widely valued for its flavor and
+                everyday use.
+
+                <br>
+                <strong>Price:</strong> ₱240.00
+              </p>
+              <button class="btn btn-sm btn-primary edit-btn" id="edit_btn">
+                <i class="bi bi-bar-chart-fill me-1"></i> Forecast
+              </button>
+              <button class="btn btn-sm btn-info more-info-btn">
+                <i class="bi bi-info-circle-fill me-1"></i> More Info
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card custom-card">
+            <div class="card-body">
+              <img
+                src="../static/commodities/garlic.jpg"
+                class="card-img mb-3"
+                alt="..."
+              />
+              <h6 class="card-title fw-semibold">GARLIC</h6>
+              <p class="card-text">
+                Garlic is a staple commodity, widely valued for its flavor and
+                everyday use.
+
+                <br>
+                <strong>Price:</strong> ₱240.00
+              </p>
+              <button class="btn btn-sm btn-primary edit-btn" id="edit_btn">
+                <i class="bi bi-bar-chart-fill me-1"></i> Forecast
+              </button>
+              <button class="btn btn-sm btn-info more-info-btn">
+                <i class="bi bi-info-circle-fill me-1"></i> More Info
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card custom-card">
+            <div class="card-body">
+              <img
+                src="../static/commodities/garlic.jpg"
+                class="card-img mb-3"
+                alt="..."
+              />
+              <h6 class="card-title fw-semibold">GARLIC</h6>
+              <p class="card-text">
+                Garlic is a staple commodity, widely valued for its flavor and
+                everyday use.
+
+                <br>
+                <strong>Price:</strong> ₱240.00
+              </p>
+              <button class="btn btn-sm btn-primary edit-btn" id="edit_btn">
+                <i class="bi bi-bar-chart-fill me-1"></i> Forecast
+              </button>
+              <button class="btn btn-sm btn-info more-info-btn">
+                <i class="bi bi-info-circle-fill me-1"></i> More Info
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card custom-card">
+            <div class="card-body">
+              <img
+                src="../static/commodities/garlic.jpg"
+                class="card-img mb-3"
+                alt="..."
+              />
+              <h6 class="card-title fw-semibold">GARLIC</h6>
+              <p class="card-text">
+                Garlic is a staple commodity, widely valued for its flavor and
+                everyday use.
+
+                <br>
+                <strong>Price:</strong> ₱240.00
+              </p>
+              <button class="btn btn-sm btn-primary edit-btn" id="edit_btn">
+                <i class="bi bi-bar-chart-fill me-1"></i> Forecast
+              </button>
+              <button class="btn btn-sm btn-info more-info-btn">
+                <i class="bi bi-info-circle-fill me-1"></i> More Info
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card custom-card">
+            <div class="card-body">
+              <img
+                src="../static/commodities/garlic.jpg"
+                class="card-img mb-3"
+                alt="..."
+              />
+              <h6 class="card-title fw-semibold">GARLIC</h6>
+              <p class="card-text">
+                Garlic is a staple commodity, widely valued for its flavor and
+                everyday use.
+
+                <br>
+                <strong>Price:</strong> ₱240.00
+              </p>
+              <button class="btn btn-sm btn-primary edit-btn" id="edit_btn">
+                <i class="bi bi-bar-chart-fill me-1"></i> Forecast
+              </button>
+              <button class="btn btn-sm btn-info more-info-btn">
+                <i class="bi bi-info-circle-fill me-1"></i> More Info
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card custom-card">
+            <div class="card-body">
+              <img
+                src="../static/commodities/garlic.jpg"
+                class="card-img mb-3"
+                alt="..."
+              />
+              <h6 class="card-title fw-semibold">GARLIC</h6>
+              <p class="card-text">
+                Garlic is a staple commodity, widely valued for its flavor and
+                everyday use.
+
+                <br>
+                <strong>Price:</strong> ₱240.00
+              </p>
+              <button class="btn btn-sm btn-primary edit-btn" id="edit_btn">
+                <i class="bi bi-bar-chart-fill me-1"></i> Forecast
+              </button>
+              <button class="btn btn-sm btn-info more-info-btn">
+                <i class="bi bi-info-circle-fill me-1"></i> More Info
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card custom-card">
+            <div class="card-body">
+              <img
+                src="../static/commodities/garlic.jpg"
+                class="card-img mb-3"
+                alt="..."
+              />
+              <h6 class="card-title fw-semibold">GARLIC</h6>
+              <p class="card-text">
+                Garlic is a staple commodity, widely valued for its flavor and
+                everyday use.
+
+                <br>
+                <strong>Price:</strong> ₱240.00
+              </p>
+              <button class="btn btn-sm btn-primary edit-btn" id="edit_btn">
+                <i class="bi bi-bar-chart-fill me-1"></i> Forecast
+              </button>
+              <button class="btn btn-sm btn-info more-info-btn">
+                <i class="bi bi-info-circle-fill me-1"></i> More Info
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card custom-card">
+            <div class="card-body">
+              <img
+                src="../static/commodities/garlic.jpg"
+                class="card-img mb-3"
+                alt="..."
+              />
+              <h6 class="card-title fw-semibold">GARLIC</h6>
+              <p class="card-text">
+                Garlic is a staple commodity, widely valued for its flavor and
+                everyday use.
+
+                <br>
+                <strong>Price:</strong> ₱240.00
+              </p>
+              <button class="btn btn-sm btn-primary edit-btn" id="edit_btn">
+                <i class="bi bi-bar-chart-fill me-1"></i> Forecast
+              </button>
+              <button class="btn btn-sm btn-info more-info-btn">
+                <i class="bi bi-info-circle-fill me-1"></i> More Info
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        
+      </div>
+    </div> -->
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.3.0/js/dataTables.responsive.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.print.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.6/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
+
+<script>
+    $(document).ready(function () {
+        $("#market_table").DataTable({
+            ajax: {
+                url: "/get_market_prices",
+                dataSrc: "",
+            },
+            columns: [
+                { data: "id" },
+                { data: "commodity_type" },
+                {
+                    data: "price",
+                    render: function (data, type, row) {
+                        return `₱${data}`;
+                    },
+                },
+                {
+                    data: null,
+                    orderable: false,
+                    searchable: false,
+                    render: function (data, type, row) {
+                        return `
+                            <button class="btn btn-sm btn-primary" 
+                                    data-id="${row.id}" 
+                                    data-commodity="${row.commodity_type}" 
+                                    data-price="${row.price}" 
+                                    id="forecast_btn">
+                            <i class="bi bi-bar-chart-fill me-1"></i> Forecast
+                            </button>
+                            <button class="btn btn-sm btn-info" 
+                                    data-id="${row.id}"
+                                    data-selected_commodity="${row.commodity_type}" 
+                                    id="more_info_btn"
+                                    >
+                            <i class="bi bi-info-circle-fill me-1"></i> More Info
+                            </button>
+                        `;
+                    },
+                },
+            ],
+        });
+    });
+
+    $(document).on("click", "#forecast_btn", function () {
+        commodity = $(this).data("commodity");
+        window.location.href = '/forecast/' + commodity;
+    });
+
+    $(document).on('click', '#more_info_btn', function () {
+        var id = $(this).data("id")
+        window.location.href = '/price_info_chart/' + id;
+    })
+</script>
+
+{% endblock %}

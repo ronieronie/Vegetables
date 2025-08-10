@@ -1,0 +1,152 @@
+{% extends 'base.html' %}
+{% block title %}
+Forecast Year
+{% endblock %}
+
+{% block content%}
+<br>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+
+<h3 style="color:#20a165">{{veg}} Year {{year}} Forecast</h3>
+<body class="text-center">
+    <div class="container">
+        <form style="color:rgb(255, 255, 255)" action="{{ url_for('yearpredict') }}" method="post">
+            <div class="form-group row">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Commodity</label>
+                <div class="col-sm-10">
+                    <select class="form-control" name="commodities">
+                        <option>{{veg}}</option>
+                        <option>Coconuts</option>
+                        <option>Cabbage</option>
+                        <option>Carrot</option>
+                        <option>Garlic</option>
+                        <option>Onion (Red)</option>
+                        <option>Tomatoes</option>
+                        <option>Onions (White)</option>
+                        <option>Bananas (Latundan)</option>
+                        <option>Bananas (saba) </option>
+                        <option>Beans (green, fresh)</option>
+                        <option>Beans (string)</option>
+                        <option>Bitter melon</option>
+                        <option>Bottle gourd</option>
+                        <option>Cabbage (chinese)</option>
+                        <option>Calamansi</option>
+                        <option>Choko</option>
+                        <option>Eggplants</option>
+                        <option>Ginger</option>
+                        <option>Papaya</option>
+                        <option>Squashes</option>
+                        <option>Water spinach</option>
+                        <option>Sweet Potato Leaves</option>
+                        <option>Bananas (lakatan)</option>
+                        <option>Mangoes (carabao)</option>
+                        <option>Mangoes (piko)</option>
+                        <option>Pineapples</option>
+                        <option>Mandarins</option>
+                        </select>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="inputPassword3" class="col-sm-2 col-form-label">Year</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" placeholder="Year" name="year" required>
+                </div>
+              </div>
+              <div class="checkbox mb-3">
+              <button class="button" type="submit">Forecast</button>
+            </div>
+        </form>
+        <style>
+          h3{
+            font-size: xx-large;
+            font-weight: bold;
+          }
+          h4{
+            font-weight: bold;
+          }
+          input{
+            font-size: xx-large;
+          }
+          .button {
+            background-color: #20a165;
+            border: none;
+            color: white;
+            padding: 10px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+          }
+          button {
+            border-radius: 12px;
+          }
+          .container{
+            text-align: center;
+            align-content: center;
+          }
+        </style>
+        <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center " style="color:white">
+          <table class="table table-bordered table-dark">
+            <thead>
+                <tr>
+                    <!-- Your Columns HERE -->
+                    <th scope="col" bgcolor="red">Month</th>
+                    <th scope="col" bgcolor="#9b5fe0">Metro Manila Market</th>
+                    <th scope="col" bgcolor="#60dbe8">Pampanga Market</th>
+                    <th scope="col" bgcolor="#f9a52c">Rizal Market</th>
+                    <th scope="col" bgcolor="#16a4d8">Bulacan Market</th>
+                    <th scope="col" bgcolor="#efdf48">Laguna Market</th>
+                    <th scope="col" bgcolor="#8bd346">Cavite Market</th>
+                </tr>
+            </thead>
+            <tbody>
+              <!-- Your rows inside the table HERE: -->
+              {% set array = [] %}
+              {% set array = mtr_data %}
+              {% if array is defined %}
+                  {% for i in range(12) %}
+                  <tr>
+                      <td>{{month[i]}}</td>
+                      <td>{{mtr_data[i]}}</td>
+                      <td>{{pam_data[i]}}</td>
+                      <td>{{riz_data[i]}}</td>
+                      <td>{{bul_data[i]}}</td>
+                      <td>{{lag_data[i]}}</td>
+                      <td>{{cav_data[i]}}</td>
+                  </tr>
+                  {% endfor %}
+              {% endif %}
+          </tbody>
+        </table>
+      </div>
+      <h5>Price Ranges</h5>
+      <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center " style="color:white">
+        <table class="table table-bordered table-dark">
+          <thead>
+              <tr>
+                  <!-- Your Columns HERE -->
+                  <th scope="col" bgcolor="red">Market Location</th>
+                  <th scope="col" bgcolor="#9b5fe0">Price Range</th>
+          <tbody>
+            <!-- Your rows inside the table HERE: -->
+            {% set array = [] %}
+            {% set array = mtr_data %}
+            {% if array is defined %}
+                {% for i in range(6) %}
+                <tr>
+                    <td>{{market[i]}}</td>
+                    <td>{{ranges[i]}}</td>
+                </tr>
+                {% endfor %}
+            {% endif %}
+        </tbody>
+      </table>
+    </div>
+    </div>
+    
+    
+</body>
+<br>
+{% endblock %}

@@ -1,0 +1,224 @@
+{% extends "base.html" %}
+{% block title %} {{ commodity}} Price Info{% endblock %}
+{% block content %}
+<style>
+    .chart-container {
+        background: #f8f9fa;
+        border-radius: 5px;
+        padding: 2rem;
+        margin-bottom: 3rem;
+        box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .legend-custom {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 2rem;
+        margin-top: 1rem;
+        padding: 1rem;
+        border-radius: 5px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.9rem;
+        font-weight: 500;
+    }
+
+    .legend-color {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+    }
+
+    /* KEY FIX: wrapper must have height */
+    .chart-wrapper {
+        position: relative;
+        height: 500px;
+        /* set desired chart height */
+        width: 100%;
+    }
+
+    /* KEY FIX: force canvas to fill wrapper */
+    .chart-wrapper canvas {
+        height: 100% !important;
+        width: 100% !important;
+    }
+
+    .description {
+        border-radius: 15px;
+        padding: 2.5rem;
+        border-left: 5px solid #fdcb6e;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    }
+
+    .description h2 {
+        margin-bottom: 1.5rem;
+        font-weight: 600;
+    }
+
+    .description p {
+        line-height: 1.7;
+        margin-bottom: 1.5rem;
+    }
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<div class="main-content app-content" style="min-height: 100vh">
+    <div class="container-fluid">
+        <!-- Page Header -->
+        <div class="d-md-flex d-block align-items-center justify-content-between my-4 page-header-breadcrumb">
+            <div class="my-auto">
+                <h5 class="page-title fs-21 mb-1">Price List</h5>
+                <nav>
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item"><a href="javascript:void(0);">Pages</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Price List</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <!-- Page Header Close -->
+
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card custom-card">
+                    <div style="background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+                        padding: 20px;">
+                        <button class="btn btn-warning" id="back_btn"><i
+                                class="bi bi-arrow-left-circle me-1"></i>Back to Market</button>
+                        <div class="card-title">
+                            <center><h2>{{ veg }} Price Analysis</h2></center>
+                        </div>
+                        <center><p>Market Price Comparison Throughout 2021</p></center>
+                    </div>
+
+                    <div class="card-body">
+                        <p style="text-indent: 50px;">Provides an interactive view of market price trends for selected commodities across different provinces.
+                        Compare historical prices, spot patterns, and track fluctuations over time through detailed charts and data summaries.
+                        The goal is to help you make informed buying, selling, or budgeting decisions based on real market insights.</p>
+                        <div class="content">
+                            <div class="chart-container">
+                                <div class="chart-wrapper">
+                                    <canvas id="chartjs-line"></canvas>
+                                </div>
+                                <div class="legend-custom">
+                                    <div class="legend-item">
+                                        <div class="legend-color" style="background-color: #ff6384;"></div><span>Metro
+                                            Manila</span>
+                                    </div>
+                                    <div class="legend-item">
+                                        <div class="legend-color" style="background-color: #36a2eb;"></div>
+                                        <span>Bulacan</span>
+                                    </div>
+                                    <div class="legend-item">
+                                        <div class="legend-color" style="background-color: #ffce56;"></div>
+                                        <span>Pampanga</span>
+                                    </div>
+                                    <div class="legend-item">
+                                        <div class="legend-color" style="background-color: #4bc0c0;"></div>
+                                        <span>Cavite</span>
+                                    </div>
+                                    <div class="legend-item">
+                                        <div class="legend-color" style="background-color: #9966ff;"></div>
+                                        <span>Laguna</span>
+                                    </div>
+                                    <div class="legend-item">
+                                        <div class="legend-color" style="background-color: #ff7f08;"></div>
+                                        <span>Rizal</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="description">
+                                <strong>{{ veg }} Price Analysis</strong>
+                                <p>{{desc}}
+                                </p>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).on('click', '#back_btn', function () {
+            window.location.href = '/market';
+        })
+        var xValues = ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        xValues.length = '{{ month }}';
+        if (xValues.length == 9) {
+            xValues = ["May", "June", "July", "Aug", "Sep", "Oct", "Nov", "Dec"]
+        }
+        else if (xValues.length == 10) {
+            xValues = ["Mar", "Apr", "May", "June", "July", "Aug", "Sep", "Oct", "Nov", "Dec"]
+        }
+        else if (xValues.length == 8) {
+            xValues = ["May", "June", "July", "Aug", "Sep", "Oct", "Nov", "Dec"]
+        }
+
+        const canvas = document.getElementById('chartjs-line');
+
+        Chart.defaults.borderColor = "rgba(142, 156, 173,0.1)";
+        Chart.defaults.color = "#8c9097";
+
+        const labels = xValues;
+
+        const data = {
+            labels: labels,
+            datasets: [
+                { label: 'Metro Manila', borderColor: '#ff6384', backgroundColor: '#ff6384', data: {{ mtr }}, fill: false, tension: 0.4 },
+                { label: 'Bulacan', borderColor: '#36a2eb', backgroundColor: '#36a2eb', data: {{ bul }}, fill: false, tension: 0.4 },
+                { label: 'Pampanga', borderColor: '#ffce56', backgroundColor: '#ffce56', data: {{ pam }}, fill: false, tension: 0.4 },
+                { label: 'Cavite', borderColor: '#4bc0c0', backgroundColor: '#4bc0c0', data: {{ cav }}, fill: false, tension: 0.4 },
+                { label: 'Laguna', borderColor: '#9966ff', backgroundColor: '#9966ff', data: {{ lag }}, fill: false, tension: 0.4 },
+                { label: 'Rizal', borderColor: '#ff7f08', backgroundColor: '#ff7f08', data: {{ riz }}, fill: false, tension: 0.4 }
+            ],
+        };
+
+        const config = {
+            type: 'line',
+            data: data,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                interaction: { mode: 'index', intersect: false },
+                stacked: false,
+                plugins: {
+                    legend: { display: false },
+                    title: {
+                        display: true,
+                        text: '{{ veg }} Prices in Metro Manila and Nearby Provinces Markets - 2021',
+                        font: {
+                            family: 'Quicksand',
+                            size: 14
+                        },
+                        color: 'black',
+                    },
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Price (PHP per kilograms)',
+                            font: {
+                                size: 14,
+                                weight: 'bold'
+                            }
+                        },
+                    }
+                }
+            },
+        };
+        new Chart(canvas, config);
+    </script>
+    {% endblock %}

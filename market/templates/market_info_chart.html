@@ -1,0 +1,468 @@
+{% extends 'base.html' %}
+{% block title %} Market Information {% endblock %}
+{% block content %}
+<style>
+    .forms-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+        margin-bottom: 30px;
+    }
+
+    .form-section {
+        padding: 20px;
+        border-radius: 5px;
+        border: 1px solid #e2e8f0;
+    }
+
+    .form-section h3 {
+        font-size: 1rem;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+    }
+
+    .form-section h3::before {
+        content: '';
+        width: 8px;
+        height: 8px;
+        background: #3b82f6;
+        border-radius: 50%;
+        margin-right: 10px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-group label {
+        display: block;
+        font-weight: 600;
+        color: #374151;
+        margin-bottom: 8px;
+    }
+
+    .form-group select:focus {
+        outline: none;
+        border-color: #3b82f6;
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    }
+
+    .chart-container {
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        padding: 40px;
+        border: 1px solid #e2e8f0;
+        display: none;
+
+    }
+
+    .chart-container.show {
+        display: block;
+        animation: fadeInUp 0.6s ease-out;
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .chart-header {
+        text-align: center;
+    }
+
+
+    .chart-header p {
+        color: #64748b;
+    }
+
+    .chart-wrapper {
+        margin: 0 auto 20px auto;
+        /* Centers it horizontally */
+        width: 100%;
+        /* Reduce width (adjust as needed) */
+        max-width: 1200px;
+        height: 400px;
+        /* Optional max width */
+    }
+
+    .chartjs-chart {
+        max-height: 30rem;
+    }
+
+    .chart-description {
+        background: linear-gradient(135deg, #eff6ff 0%, #f3e8ff 100%);
+        border-radius: 5px;
+        padding: 30px;
+        border: 1px solid #e0e7ff;
+    }
+
+    .chart-description h3 {
+        font-size: 1.4rem;
+        color: #1e293b;
+        margin-bottom: 15px;
+    }
+
+    .description-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 20px;
+    }
+
+    .description-grid p {
+        color: #475569;
+        line-height: 1.6;
+        margin-bottom: 10px;
+    }
+
+    .description-grid strong {
+        color: #1e293b;
+    }
+
+    /* Mobile adjustments */
+    @media (max-width: 600px) {
+        .chart-description {
+            padding: 20px;
+            /* Less padding on small screens */
+        }
+
+        .description-grid {
+            grid-template-columns: 1fr;
+            /* Single column on small screens */
+        }
+
+        .forms-grid {
+            grid-template-columns: 1fr;
+            /* Single column on small screens */
+            gap: 20px;
+        }
+
+        .form-section {
+            padding: 15px;
+        }
+    }
+</style>
+<div class="main-content app-content" style="min-height: 100vh">
+    <div class="container-fluid">
+        <!-- Page Header -->
+        <div class="d-md-flex d-block align-items-center justify-content-between my-4 page-header-breadcrumb">
+            <div class="my-auto">
+                <h5 class="page-title fs-21 mb-1">Market Info</h5>
+                <nav>
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item">
+                            <a href="javascript:void(0);">Pages</a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">
+                            Market Info
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+
+        <!-- Page Header Close -->
+
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card custom-card">
+                    <div class="card-header">
+                        <div class="card-title" style="
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                width: 100%;
+              ">
+                            <center><span>Market Analysis Dashboard</span></center>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <p style="text-indent: 30px; text-align:justify ;">
+                            Explore and analyze how commodity prices change throughout the year with our interactive
+                            tool. Simply select your preferred market location and the specific commodity you’re
+                            interested in to view detailed monthly pricing data. This feature allows you to track price
+                            trends, identify seasonal patterns, and make informed decisions based on real market
+                            insights.
+
+                            Please note that some commodities may not have data available for certain months due to
+                            seasonal availability or market fluctuations.
+                        </p>
+
+
+                        <div class="forms-grid">
+                            <!-- Market Location Form -->
+                            <div class="form-section">
+                                <h3>Market Location</h3>
+                                <div class="form-group">
+                                    <label for="location"><i class="bi bi-geo-alt-fill"></i> Select Location</label>
+                                    <select id="location" class="form-select">
+                                        <option value="">Choose a location...</option>
+                                        <option value="Metropolitan Manila, Metro Manila Market">Metropolitan Manila,
+                                            Metro Manila Market</option>
+                                        <option value="Bulacan, Bulacan Market">Bulacan, Bulacan Market</option>
+                                        <option value="Bulacan, Pampanga Market">Bulacan, Pampanga Market</option>
+                                        <option value="Laguna, Laguna Market">Laguna, Laguna Market</option>
+                                        <option value="Cavite, Cavite Market">Cavite, Cavite Market</option>
+                                        <option value="Rizal, Rizal Market">Rizal, Rizal Market</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Category Selection Form -->
+
+
+                            <!-- Specific Commodity Selection -->
+                            <div class="form-section">
+                                <h3>Commodity</h3>
+                                <div class="form-group">
+                                    <label for="commodity"><i class="bi bi-basket-fill"></i> Select Commodity</label>
+                                    <select id="commodity" class="form-select">
+                                        <option value="">Choose commodity...</option>
+                                        <option value="Coconuts">Coconuts</option>
+                                        <option value="Cabbage">Cabbage</option>
+                                        <option value="Carrots">Carrots</option>
+                                        <option value="Garlic">Garlic</option>
+                                        <option value="Onion (Red)">Onion (Red)</option>
+                                        <option value="Tomatoes">Tomatoes</option>
+                                        <option value="Onions (White)">Onions (White)</option>
+                                        <option value="Bananas (Lantundan)">Bananas (Lantundan)</option>
+                                        <option value="Bananas (Saba)">Bananas (Saba)</option>
+                                        <option value="Beans (Green, Fresh)">Beans (Green, Fresh)</option>
+                                        <option value="Beans (String)">Beans (String)</option>
+                                        <option value="Bitter Melon">Bitter Melon</option>
+                                        <option value="Bottle Gourd">Bottle Gourd</option>
+                                        <option value="Cabbage (Chinese)">Cabbage (Chinese)</option>
+                                        <option value="Calamansi">Calamansi</option>
+                                        <option value="Choko">Choko</option>
+                                        <option value="Eggplants">Eggplants</option>
+                                        <option value="Ginger">Ginger</option>
+                                        <option value="Papaya">Papaya</option>
+                                        <option value="Squashes">Squashes</option>
+                                        <option value="Water Spinach">Water Spinach</option>
+                                        <option value="Sweet Potato Leaves">Sweet Potato Leaves</option>
+                                        <option value="Bananas (Lakatan)">Bananas (Lakatan)</option>
+                                        <option value="Mangoes (Carabao)">Mangoes (Carabao)</option>
+                                        <option value="Mangoes (Piko)">Mangoes (Piko)</option>
+                                        <option value="Pineapples">Pineapples</option>
+                                        <option value="Mandarins">Mandarins</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Generate Button -->
+                        <div class="text-end">
+                            <button class="btn btn-primary" id="generate_chart">
+                                <i class="bi bi-bar-chart-fill me-1"></i>Generate Price Trend Analysis
+                            </button>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="chartContainer" class="chart-container">
+            <div class="chart-header">
+                <h2 id="chartTitle">Price Trends</h2>
+                <p id="chartSubtitle">Monthly price trends per kilogram ₱/kg — 2021 analysis</p>
+            </div>
+            <div class="chart-wrapper" id="no_data" style="display: none;">
+                <center>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="none" stroke="#888"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="10" />
+                        <line x1="4.93" y1="4.93" x2="19.07" y2="19.07" />
+                    </svg>
+                </center>
+                <center>
+                    <p style="margin-top: 15px; font-size: 1.2rem;">No data available</p>
+                </center>
+            </div>
+
+            <div class="chart-wrapper">
+                <canvas id="chartjs-bar" class="chartjs-chart"></canvas>
+            </div>
+
+            <div class="chart-description">
+                <div class="description-grid">
+                    <div>
+                        <h5>Graph Analysis</h5>
+                        <p id="description1">
+                        </p>
+                        <p id="peakMonth">
+
+                        </p>
+                    </div>
+                    <div>
+                        <h5>Price Trend Analysis</h5>
+                        <p id="description2">
+                            The price trends show seasonal variations in pricing, with factors like harvest seasons,
+                            weather conditions, and supply chain dynamics significantly influencing monthly rates.
+                        </p>
+                        <p id="lowestMonth">
+
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="../static/libs/chart.js/chart.min.js"></script>
+
+<!-- Imternal Chartjs JS -->
+<script src="../static/js/chartjs-charts.js"></script>
+<script>
+
+    var get_data = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    $(document).on('click', '#generate_chart', function () {
+        var location = $('#location').val();
+        var commodities = $('#commodity').val();
+        $.ajax({
+            url: "/marketchart",
+            type: "POST",
+            headers: {
+                "X-CSRFToken": "{{ csrf_token() }}",
+            },
+            data: {
+                location: location,
+                commodities: commodities
+            },
+            success: function (response) {
+                if (response.data.every(value => value === 0)) {
+                    $('.chart-container').css('display', 'block');
+                    $('.chartjs-chart').css('display', 'none');
+                    $('.chart-description').css('display', 'none');
+                    $('#no_data').css('display', 'block')
+                    $('.chart-wrapper').css('height', '50px');
+                }
+                else {
+                    $('.chart-container').css('display', 'block');
+                    $('.chart-description').css('display', 'block');
+                    $('.chartjs-chart').css('display', 'block');
+                    $('#no_data').css('display', 'none')
+                    $('.chart-wrapper').css('height', '400px');
+                    $('#description1').html(response.text2)
+                    myChart1.data.datasets[0].data = response.data;
+
+                    if (response.month == 8) {
+                        myChart1.data.labels = ["May", "June", "July", "Aug", "Sep", "Oct", "Nov", "Dec"];
+                    }
+                    else if (response.month == 10) {
+                        myChart1.data.labels = ["Mar", "Apr", "May", "June", "July", "Aug", "Sep", "Oct", "Nov", "Dec"]
+                    }
+                    else {
+                        myChart1.data.labels = ['January',
+                            'February',
+                            'March',
+                            'April',
+                            'May',
+                            'June',
+                            'July',
+                            'August',
+                            'September',
+                            'October',
+                            'November',
+                            'December'];
+                    }
+                    myChart1.update();
+
+                    var price_data = myChart1.data.datasets[0].data;
+                    var labels = myChart1.data.labels;
+
+                    const maxValue = Math.max(...price_data);
+                    const minValue = Math.min(...price_data);
+
+                    const highestLabels = labels.filter((label, idx) => price_data[idx] === maxValue);
+                    const lowestLabels = labels.filter((label, idx) => price_data[idx] === minValue);
+                    $('#peakMonth').html('<strong>Peak Month: </strong>' + highestLabels);
+                    $('#lowestMonth').html('<strong>Lowest Month: </strong>' + lowestLabels)
+                    $('#chartTitle').html(commodities + ' Price Trends in ' + location)
+                }
+
+
+            }
+        });
+    })
+
+    const labels1 = [
+        'January',
+        'February',
+        'March',
+        'April',
+        'May',
+        'June',
+        'July',
+        'August',
+        'September',
+        'October',
+        'November',
+        'December'
+    ];
+    const data1 = {
+        labels: labels1,
+        datasets: [{
+            label: 'Price',
+            data: get_data,
+            backgroundColor: [
+                '#d0e7ff',  // very light blue
+                '#a9ceff',
+                '#83b5ff',
+                '#5c9cff',
+                '#3683ff',
+                '#0d6efd',  // Bootstrap primary (darkest)
+                '#0d6efd',
+                '#0d6efd',
+                '#0d6efd',
+                '#0d6efd',
+                '#0d6efd',
+                '#0d6efd'
+            ],
+        }]
+    };
+    const config1 = {
+        type: 'bar',
+        data: data1,
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Price (PHP per kilograms)',
+                        font: {
+                            size: 14,
+                            weight: 'bold'
+                        }
+                    },
+                }
+            }
+        },
+    };
+    const myChart1 = new Chart(
+        document.getElementById('chartjs-bar'),
+        config1
+    );
+
+</script>
+{% endblock %}

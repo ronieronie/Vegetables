@@ -1,0 +1,803 @@
+{% extends "base.html" %}
+{% block title %} {{ commodity}} Yearly Forecast{% endblock %}
+{% block content %}
+<style>
+    .forms-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+        margin-bottom: 30px;
+    }
+
+    .form-section {
+        padding: 20px;
+        border-radius: 5px;
+        border: 1px solid #e2e8f0;
+    }
+
+    .form-section h3 {
+        font-size: 1rem;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+    }
+
+    .form-section h3::before {
+        content: '';
+        width: 8px;
+        height: 8px;
+        background: #3b82f6;
+        border-radius: 50%;
+        margin-right: 10px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-group label {
+        display: block;
+        font-weight: 600;
+        color: #374151;
+        margin-bottom: 8px;
+    }
+
+    .form-group select:focus {
+        outline: none;
+        border-color: #3b82f6;
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    }
+
+    .icon-circle {
+        width: 50px;
+        /* Circle size */
+        height: 50px;
+        border-radius: 50%;
+        /* Make it round */
+        font-size: 1.4rem;
+        /* Icon size */
+    }
+</style>
+<link href="../static/" rel="stylesheet">
+<div class="main-content app-content" style="min-height: 100vh">
+    <div class="container-fluid">
+        <!-- Page Header -->
+        <div class="d-md-flex d-block align-items-center justify-content-between my-4 page-header-breadcrumb">
+            <div class="my-auto">
+                <h5 class="page-title fs-21 mb-1">Yearly Forecast</h5>
+                <nav>
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item">
+                            <a href="javascript:void(0);">Pages</a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">
+                            Yearly Forecast
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+
+        <!-- Page Header Close -->
+
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card custom-card">
+                    <div class="card-header">
+                        <div class="card-title" style="
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                width: 100%;
+              ">
+                            <center><span>Vegetables and Fruits Price Forecast</span></center>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <p style="text-indent: 30px; text-align:justify ;">
+                            Explore and analyze how vegetable and fruit prices are expected to change throughout the
+                            year with our interactive forecast tool. Simply select your preferred market location and
+                            the specific produce you’re interested in to view projected monthly pricing trends. This
+                            feature helps you anticipate seasonal fluctuations, plan purchases, and make informed
+                            decisions based on forecasted market insights.
+
+                            Please note that forecasts are based on historical trends and market factors, and actual
+                            prices may vary due to seasonal conditions, supply changes, or unforeseen market shifts.
+                        </p>
+
+
+                        <div class="forms-grid">
+                            <div class="form-section">
+                                <h3>Commodity</h3>
+                                <div class="form-group">
+                                    <label for="commodity"><i class="bi bi-basket-fill"></i> Select Commodity</label>
+                                    <select id="commodity" class="form-select">
+                                        <option value="">Choose commodity...</option>
+                                        <option value="Coconuts">Coconuts</option>
+                                        <option value="Cabbage">Cabbage</option>
+                                        <option value="Carrot">Carrots</option>
+                                        <option value="Garlic">Garlic</option>
+                                        <option value="Onion (Red)">Onion (Red)</option>
+                                        <option value="Tomatoes">Tomatoes</option>
+                                        <option value="Onions (white)">Onions (White)</option>
+                                        <option value="Bananas (Latundan)">Bananas (Lantundan)</option>
+                                        <option value="Bananas (saba)">Bananas (Saba)</option>
+                                        <option value="Beans (green, fresh)">Beans (Green, Fresh)</option>
+                                        <option value="Beans (string)">Beans (String)</option>
+                                        <option value="Bitter melon">Bitter Melon</option>
+                                        <option value="Bottle gourd">Bottle Gourd</option>
+                                        <option value="Cabbage (chinese)">Cabbage (Chinese)</option>
+                                        <option value="Calamansi">Calamansi</option>
+                                        <option value="Choko">Choko</option>
+                                        <option value="Eggplants">Eggplants</option>
+                                        <option value="Ginger">Ginger</option>
+                                        <option value="Papaya">Papaya</option>
+                                        <option value="Squashes">Squashes</option>
+                                        <option value="Water spinach">Water Spinach</option>
+                                        <option value="Sweet Potato leaves">Sweet Potato Leaves</option>
+                                        <option value="Bananas (lakatan)">Bananas (Lakatan)</option>
+                                        <option value="Mangoes (carabao)">Mangoes (Carabao)</option>
+                                        <option value="Mangoes (piko)">Mangoes (Piko)</option>
+                                        <option value="Pineapples">Pineapples</option>
+                                        <option value="Mandarins">Mandarins</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-section">
+                                <h3>Forecast Year</h3>
+                                <div class="form-group">
+                                    <label for="location"><i class="bi bi-calendar"></i> Forecast Year</label>
+                                    <input type="text" class="form-control" id="year"
+                                        placeholder="Enter forecast year (e.g., 2025)">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Generate Button -->
+                        <div class="text-end">
+                            <button class="btn btn-primary" id="forecast_btn">
+                                <i class="bi bi-bar-chart-fill me-1"></i>Generate Forecast
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 col-xl-4">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <strong>MARKET OVERVIEW</strong>
+                                <div class="h3 mt-2 mb-2 text-info"><b>₱<span id="prices_ave"></span></b>
+                                </div>
+                            </div>
+                            <div class="col-auto align-self-center">
+                                <div class="feature mt-0 mb-0">
+                                    <div
+                                        class="icon-circle bg-info bg-opacity-25 text-info d-flex align-items-center justify-content-center">
+                                        <i class="bi bi-bar-chart-fill"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="mb-1">Average Price</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12 col-xl-4">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <strong>PRICE RANGE</strong>
+                            </div>
+                            <div class="col-auto align-self-center">
+                                <div class="feature mt-0 mb-0">
+                                    <div
+                                        class="icon-circle bg-primary bg-opacity-25 text-primary d-flex align-items-center justify-content-center">
+                                        <i class="bi bi-graph-up-arrow"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="mb-1 text-primary" style="margin-bottom: 0.1rem !important">Lowest Price: ₱<span
+                                    id="min_price"></span></p>
+                            <p class="mb-1 text-danger" style="margin-bottom: 0.1rem !important">Highest Price: ₱<span
+                                    id="max_price"></span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 col-xl-4">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <strong>BEST MARKET</strong>
+                                <div class="h3 mt-2 mb-2 text-success"><b><span id="best_market"></span></b>
+                                </div>
+                            </div>
+                            <div class="col-auto align-self-center">
+                                <div class="feature mt-0 mb-0">
+                                    <div
+                                        class="icon-circle bg-success bg-opacity-25 text-success d-flex align-items-center justify-content-center">
+                                        <i class="bi bi-shop"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="mb-1">Lowest Average: ₱<span id="best_ave"></span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 col-lg-4 col-xl-4">
+                <div class="card top-countries-card">
+                    <div class="card-header p-0">
+                        <div class="row">
+                            <div class="col text-start">
+                                <h6 class="card-title fs-13 mb-2">METRO MANILA</h6>
+                                <span class="d-block text-muted fs-12 mb-2">National Capital Region</span>
+                            </div>
+                            <div class="col text-end">
+                                <h6 class="card-title fs-13 mb-2 text-primary" id="mtr_ave"></h6>
+                                <span class="d-block text-muted fs-12 mb-2">Average Price</span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col text-start">
+                                <div class="container py-2 rounded bg-primary bg-opacity-25 mb-3">
+                                    <strong class="mb-0 text-primary d-block" id="">Lowest</strong>
+                                    <span class="d-block text-primary" id="mtr_min_val"></span>
+                                </div>
+                            </div>
+                            <div class="col text-end">
+                                <div class="container py-2 rounded bg-danger bg-opacity-25 mb-3 text-start">
+                                    <strong class="mb-0 text-danger d-block">Highest</strong>
+                                    <span class="d-block text-danger" id="mtr_max_val"></span>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="list-group border">
+                        <div class="list-group-item border-top-0" id="br-t-0">
+                            <p>January</p>
+                            <span id="mtr_0"></span>
+                        </div>
+                        <div class="list-group-item">
+                            <p>February</p>
+                            <span id="mtr_1"></span>
+                        </div>
+                        <div class="list-group-item">
+                            <p>March</p>
+                            <span id="mtr_2"></span>
+                        </div>
+                        <div class="list-group-item">
+                            <p>April</p>
+                            <span id="mtr_3"></span>
+                        </div>
+                        <div class="list-group-item">
+                            <p>May</p>
+                            <span id="mtr_4"></span>
+                        </div>
+                        <div class="list-group-item">
+                            <p>June</p>
+                            <span id="mtr_5"></span>
+                        </div>
+                        <div class="list-group-item">
+                            <p>July</p>
+                            <span id="mtr_6"></span>
+                        </div>
+                        <div class="list-group-item">
+                            <p>August</p>
+                            <span id="mtr_7"></span>
+                        </div>
+                        <div class="list-group-item">
+                            <p>September</p>
+                            <span id="mtr_8"></span>
+                        </div>
+                        <div class="list-group-item">
+                            <p>October</p>
+                            <span id="mtr_9"></span>
+                        </div>
+                        <div class="list-group-item">
+                            <p>November</p>
+                            <span id="mtr_10"></span>
+                        </div>
+                        <div class="list-group-item">
+                            <p>December</p>
+                            <span id="mtr_11"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12 col-lg-4 col-xl-4">
+                <div class="card top-countries-card">
+                    <div class="card-header p-0">
+                        <div class="row">
+                            <div class="col text-start">
+                                <h6 class="card-title fs-13 mb-2">PAMPANGA</h6>
+                                <span class="d-block text-muted fs-12 mb-2">Central Luzon</span>
+                            </div>
+                            <div class="col text-end">
+                                <h6 class="card-title fs-13 mb-2 text-primary" id="pam_ave"></h6>
+                                <span class="d-block text-muted fs-12 mb-2">Average Price</span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col text-start">
+                                <div class="container py-2 rounded bg-primary bg-opacity-25 mb-3">
+                                    <strong class="mb-0 text-primary d-block">Lowest</strong>
+                                    <span class="d-block text-primary" id="pam_min_val"></span>
+                                </div>
+                            </div>
+                            <div class="col text-end">
+                                <div class="container py-2 rounded bg-danger bg-opacity-25 mb-3 text-start">
+                                    <strong class="mb-0 text-danger d-block">Highest</strong>
+                                    <span class="d-block text-danger" id="pam_max_val"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list-group border">
+                        <div class="list-group-item border-top-0" id="br-t-0">
+                            <p>January</p>
+                            <span id="pam_0"></span>
+                        </div>
+                        <div class="list-group-item">
+                            <p>February</p>
+                            <span id="pam_1"></span>
+                        </div>
+                        <div class="list-group-item">
+                            <p>March</p>
+                            <span id="pam_2"></span>
+                        </div>
+                        <div class="list-group-item">
+                            <p>April</p>
+                            <span id="pam_3"></span>
+                        </div>
+                        <div class="list-group-item">
+                            <p>May</p>
+                            <span id="pam_4"></span>
+                        </div>
+                        <div class="list-group-item">
+                            <p>June</p>
+                            <span id="pam_5"></span>
+                        </div>
+                        <div class="list-group-item">
+                            <p>July</p>
+                            <span id="pam_6"></span>
+                        </div>
+                        <div class="list-group-item">
+                            <p>August</p>
+                            <span id="pam_7"></span>
+                        </div>
+                        <div class="list-group-item">
+                            <p>September</p>
+                            <span id="pam_8"></span>
+                        </div>
+                        <div class="list-group-item">
+                            <p>October</p>
+                            <span id="pam_9"></span>
+                        </div>
+                        <div class="list-group-item">
+                            <p>November</p>
+                            <span id="pam_10"></span>
+                        </div>
+                        <div class="list-group-item">
+                            <p>December</p>
+                            <span id="pam_11"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12 col-lg-4 col-xl-4">
+                <div class="card top-countries-card">
+                    <div class="card-header p-0">
+                        <div class="row">
+                            <div class="col text-start">
+                                <h6 class="card-title fs-13 mb-2">RIZAL</h6>
+                                <span class="d-block text-muted fs-12 mb-2">Calabarzon</span>
+                            </div>
+                            <div class="col text-end">
+                                <h6 class="card-title fs-13 mb-2 text-primary" id="riz_ave"></h6>
+                                <span class="d-block text-muted fs-12 mb-2">Average Price</span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col text-start">
+                                <div class="container py-2 rounded bg-primary bg-opacity-25 mb-3">
+                                    <strong class="mb-0 text-primary d-block">Lowest</strong>
+                                    <span class="d-block text-primary" id="riz_min_val"></span>
+                                </div>
+                            </div>
+                            <div class="col text-end">
+                                <div class="container py-2 rounded bg-danger bg-opacity-25 mb-3 text-start">
+                                    <strong class="mb-0 text-danger d-block">Highest</strong>
+                                    <span class="d-block text-danger" id="riz_max_val"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list-group border">
+                        <div class="list-group-item border-top-0" id="br-t-0">
+                            <p>January</p>
+                            <span id="riz_0"></span>
+                        </div>
+                        <div class="list-group-item">
+                            <p>February</p>
+                            <span id="riz_1"></span>
+                        </div>
+                        <div class="list-group-item">
+                            <p>March</p>
+                            <span id="riz_2"></span>
+                        </div>
+                        <div class="list-group-item">
+                            <p>April</p>
+                            <span id="riz_3"></span>
+                        </div>
+                        <div class="list-group-item">
+                            <p>May</p>
+                            <span id="riz_4"></span>
+                        </div>
+                        <div class="list-group-item">
+                            <p>June</p>
+                            <span id="riz_5"></span>
+                        </div>
+                        <div class="list-group-item">
+                            <p>July</p>
+                            <span id="riz_6"></span>
+                        </div>
+                        <div class="list-group-item">
+                            <p>August</p>
+                            <span id="riz_7"></span>
+                        </div>
+                        <div class="list-group-item">
+                            <p>September</p>
+                            <span id="riz_8"></span>
+                        </div>
+                        <div class="list-group-item">
+                            <p>October</p>
+                            <span id="riz_9"></span>
+                        </div>
+                        <div class="list-group-item">
+                            <p>November</p>
+                            <span id="riz_10"></span>
+                        </div>
+                        <div class="list-group-item">
+                            <p>December</p>
+                            <span id="riz_11"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12 col-lg-4 col-xl-4">
+                <div class="card top-countries-card">
+                    <div class="card-header p-0">
+                        <div class="row">
+                            <div class="col text-start">
+                                <h6 class="card-title fs-13 mb-2">LAGUNA</h6>
+                                <span class="d-block text-muted fs-12 mb-2">Calabarzon</span>
+                            </div>
+                            <div class="col text-end">
+                                <h6 class="card-title fs-13 mb-2 text-primary" id="lag_ave"></h6>
+                                <span class="d-block text-muted fs-12 mb-2">Average Price</span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col text-start">
+                                <div class="container py-2 rounded bg-primary bg-opacity-25 mb-3">
+                                    <strong class="mb-0 text-primary d-block">Lowest</strong>
+                                    <span class="d-block text-primary" id="lag_min_val"></span>
+                                </div>
+                            </div>
+                            <div class="col text-end">
+                                <div class="container py-2 rounded bg-danger bg-opacity-25 mb-3 text-start">
+                                    <strong class="mb-0 text-danger d-block">Highest</strong>
+                                    <span class="d-block text-danger" id="lag_max_val"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list-group border">
+                        <div class="list-group-item border-top-0" id="br-t-0">
+                            <p>January</p>
+                            <span id="lag_0"></span>
+                        </div>
+                        <div class="list-group-item">
+                            <p>February</p>
+                            <span id="lag_1"></span>
+                        </div>
+                        <div class="list-group-item">
+                            <p>March</p>
+                            <span id="lag_2"></span>
+                        </div>
+                        <div class="list-group-item">
+                            <p>April</p>
+                            <span id="lag_3"></span>
+                        </div>
+                        <div class="list-group-item">
+                            <p>May</p>
+                            <span id="lag_4"></span>
+                        </div>
+                        <div class="list-group-item">
+                            <p>June</p>
+                            <span id="lag_5"></span>
+                        </div>
+                        <div class="list-group-item">
+                            <p>July</p>
+                            <span id="lag_6"></span>
+                        </div>
+                        <div class="list-group-item">
+                            <p>August</p>
+                            <span id="lag_7"></span>
+                        </div>
+                        <div class="list-group-item">
+                            <p>September</p>
+                            <span id="lag_8"></span>
+                        </div>
+                        <div class="list-group-item">
+                            <p>October</p>
+                            <span id="lag_9"></span>
+                        </div>
+                        <div class="list-group-item">
+                            <p>November</p>
+                            <span id="lag_10"></span>
+                        </div>
+                        <div class="list-group-item">
+                            <p>December</p>
+                            <span id="lag_11"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12 col-lg-4 col-xl-4">
+                <div class="card top-countries-card">
+                    <div class="card-header p-0">
+                        <div class="row">
+                            <div class="col text-start">
+                                <h6 class="card-title fs-13 mb-2">CAVITE</h6>
+                                <span class="d-block text-muted fs-12 mb-2">Calabarzon</span>
+                            </div>
+                            <div class="col text-end">
+                                <h6 class="card-title fs-13 mb-2 text-primary" id="cav_ave"></h6>
+                                <span class="d-block text-muted fs-12 mb-2">Average Price</span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col text-start">
+                                <div class="container py-2 rounded bg-primary bg-opacity-25 mb-3">
+                                    <strong class="mb-0 text-primary d-block">Lowest</strong>
+                                    <span class="d-block text-primary" id="cav_min_val"></span>
+                                </div>
+                            </div>
+                            <div class="col text-end">
+                                <div class="container py-2 rounded bg-danger bg-opacity-25 mb-3 text-start">
+                                    <strong class="mb-0 text-danger d-block">Highest</strong>
+                                    <span class="d-block text-danger" id="cav_max_val"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list-group border">
+                        <div class="list-group-item border-top-0" id="br-t-0">
+                            <p>January</p>
+                            <span id="cav_0"></span>
+                        </div>
+                        <div class="list-group-item">
+                            <p>February</p>
+                            <span id="cav_1"></span>
+                        </div>
+                        <div class="list-group-item">
+                            <p>March</p>
+                            <span id="cav_2"></span>
+                        </div>
+                        <div class="list-group-item">
+                            <p>April</p>
+                            <span id="cav_3"></span>
+                        </div>
+                        <div class="list-group-item">
+                            <p>May</p>
+                            <span id="cav_4"></span>
+                        </div>
+                        <div class="list-group-item">
+                            <p>June</p>
+                            <span id="cav_5"></span>
+                        </div>
+                        <div class="list-group-item">
+                            <p>July</p>
+                            <span id="cav_6"></span>
+                        </div>
+                        <div class="list-group-item">
+                            <p>August</p>
+                            <span id="cav_7"></span>
+                        </div>
+                        <div class="list-group-item">
+                            <p>September</p>
+                            <span id="cav_8"></span>
+                        </div>
+                        <div class="list-group-item">
+                            <p>October</p>
+                            <span id="cav_9"></span>
+                        </div>
+                        <div class="list-group-item">
+                            <p>November</p>
+                            <span id="cav_10"></span>
+                        </div>
+                        <div class="list-group-item">
+                            <p>December</p>
+                            <span id="cav_11"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12 col-lg-4 col-xl-4">
+                <div class="card top-countries-card">
+                    <div class="card-header p-0">
+                        <div class="row">
+                            <div class="col text-start">
+                                <h6 class="card-title fs-13 mb-2">BULACAN</h6>
+                                <span class="d-block text-muted fs-12 mb-2">Northern Luzon</span>
+                            </div>
+                            <div class="col text-end">
+                                <h6 class="card-title fs-13 mb-2 text-primary" id="bul_ave"></h6>
+                                <span class="d-block text-muted fs-12 mb-2">Average Price</span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col text-start">
+                                <div class="container py-2 rounded bg-primary bg-opacity-25 mb-3">
+                                    <strong class="mb-0 text-primary d-block">Lowest</strong>
+                                    <span class="d-block text-primary" id="bul_min_val"></span>
+                                </div>
+                            </div>
+                            <div class="col text-end">
+                                <div class="container py-2 rounded bg-danger bg-opacity-25 mb-3 text-start">
+                                    <strong class="mb-0 text-danger d-block">Highest</strong>
+                                    <span class="d-block text-danger" id="bul_max_val"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list-group border">
+                        <div class="list-group-item border-top-0" id="br-t-0">
+                            <p>January</p>
+                            <span id="bul_0"></span>
+                        </div>
+                        <div class="list-group-item">
+                            <p>February</p>
+                            <span id="bul_1"></span>
+                        </div>
+                        <div class="list-group-item">
+                            <p>March</p>
+                            <span id="bul_2"></span>
+                        </div>
+                        <div class="list-group-item">
+                            <p>April</p>
+                            <span id="bul_3"></span>
+                        </div>
+                        <div class="list-group-item">
+                            <p>May</p>
+                            <span id="bul_4"></span>
+                        </div>
+                        <div class="list-group-item">
+                            <p>June</p>
+                            <span id="bul_5"></span>
+                        </div>
+                        <div class="list-group-item">
+                            <p>July</p>
+                            <span id="bul_6"></span>
+                        </div>
+                        <div class="list-group-item">
+                            <p>August</p>
+                            <span id="bul_7"></span>
+                        </div>
+                        <div class="list-group-item">
+                            <p>September</p>
+                            <span id="bul_8"></span>
+                        </div>
+                        <div class="list-group-item">
+                            <p>October</p>
+                            <span id="bul_9"></span>
+                        </div>
+                        <div class="list-group-item">
+                            <p>November</p>
+                            <span id="bul_10"></span>
+                        </div>
+                        <div class="list-group-item">
+                            <p>December</p>
+                            <span id="bul_11"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).on('click', '#forecast_btn', function () {
+        var year = $('#year').val();
+        var veg = $('#commodity').val()
+
+        $.ajax({
+            url: "/ypredict",
+            type: "POST",
+            headers: {
+                "X-CSRFToken": "{{ csrf_token() }}",
+            },
+            data: {
+                veg: veg,
+                year: year,
+            },
+            success: function (response) {
+                $('#best_market').html(response.best_market);
+                $('#best_ave').html(response.best_ave.toFixed(2));
+                $('#min_price').html(response.min_pred_price.toFixed(2));
+                $('#max_price').html(response.max_pred_price.toFixed(2));
+                $('#prices_ave').html(response.prices_ave.toFixed(2));
+                $('#mtr_ave').html('₱' + response.mtr_ave.toFixed(2))
+                $('#mtr_max_val').html('₱' + response.mtr_max.toFixed(2));
+                $('#mtr_min_val').html('₱' + response.mtr_min.toFixed(2));
+                $('#pam_ave').html('₱' + response.pam_ave.toFixed(2))
+                $('#pam_max_val').html('₱' + response.pam_max.toFixed(2));
+                $('#pam_min_val').html('₱' + response.pam_min.toFixed(2));
+                $('#riz_ave').html('₱' + response.riz_ave.toFixed(2))
+                $('#riz_max_val').html('₱' + response.riz_max.toFixed(2));
+                $('#riz_min_val').html('₱' + response.riz_min.toFixed(2));
+                // CAV version
+                $('#cav_ave').html('₱' + response.cav_ave.toFixed(2));
+                $('#cav_max_val').html('₱' + response.cav_max.toFixed(2));
+                $('#cav_min_val').html('₱' + response.cav_min.toFixed(2));
+
+                // LAG version
+                $('#lag_ave').html('₱' + response.lag_ave.toFixed(2));
+                $('#lag_max_val').html('₱' + response.lag_max.toFixed(2));
+                $('#lag_min_val').html('₱' + response.lag_min.toFixed(2));
+
+                // BUL version
+                $('#bul_ave').html('₱' + response.bul_ave.toFixed(2));
+                $('#bul_max_val').html('₱' + response.bul_max.toFixed(2));
+                $('#bul_min_val').html('₱' + response.bul_min.toFixed(2));
+                for (let i = 0; i < 12; i++) {
+                    $('#mtr_' + i).html('₱' + response.mtr_data[i].toFixed(2));
+                    $('#pam_' + i).html('₱' + response.pam_data[i].toFixed(2));
+                    $('#riz_' + i).html('₱' + response.riz_data[i].toFixed(2));
+                    $('#cav_' + i).html('₱' + response.cav_data[i].toFixed(2));
+                    $('#lag_' + i).html('₱' + response.lag_data[i].toFixed(2));
+                    $('#bul_' + i).html('₱' + response.bul_data[i].toFixed(2));
+                }
+            }
+        });
+    })
+</script>
+
+{% endblock %}

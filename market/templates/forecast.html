@@ -1,0 +1,555 @@
+{% extends 'base.html' %} {% block title %} Price Forecasting {% endblock %} {%
+block content %}
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem 1rem;
+    }
+
+    .main-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .card {
+        padding: 2rem;
+        box-shadow: none;
+    }
+
+    .card h2 {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+    }
+
+    .card h2::before {
+        margin-right: 0.5rem;
+    }
+
+    .results-card h2::before {
+        content: "📈";
+    }
+
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+        display: block;
+        font-size: 0.875rem;
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+    }
+
+    .form-group select:focus {
+        outline: none;
+    }
+
+    .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+    }
+
+    .loading {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .spinner {
+        width: 20px;
+        height: 20px;
+        border: 2px solid #ffffff;
+        border-top: 2px solid transparent;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin-right: 0.5rem;
+    }
+
+    @keyframes spin {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
+    .empty-state {
+        text-align: center;
+        padding: 3rem 0;
+    }
+
+    .empty-state-icon {
+        width: 96px;
+        height: 96px;
+        background: #f3f4f6;
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1rem;
+        font-size: 3rem;
+    }
+
+    .empty-state p {
+        color: #6b7280;
+        font-size: 1.125rem;
+    }
+
+    .loading-state {
+        text-align: center;
+        padding: 3rem 0;
+    }
+
+    .loading-spinner {
+        width: 64px;
+        height: 64px;
+        border: 4px solid #d1fae5;
+        border-top: 4px solid #10b981;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin: 0 auto 1rem;
+    }
+
+    .price-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .price-card {
+        padding: 1rem;
+        border-radius: 0.5rem;
+    }
+
+    .price-card.current {
+        background: #dbeafe;
+    }
+
+    .price-card.forecast {
+        background: #dcfce7;
+    }
+
+    .price-card.forecast.decrease {
+        background: #fee2e2;
+    }
+
+    .price-card p:first-child {
+        font-size: 0.875rem;
+        font-weight: 500;
+        margin-bottom: 0.25rem;
+    }
+
+    .price-card.current p:first-child {
+        color: #1d4ed8;
+    }
+
+    .price-card.forecast p:first-child {
+        color: #166534;
+    }
+
+    .price-card.forecast.decrease p:first-child {
+        color: #dc2626;
+    }
+
+    .price-card p:last-child {
+        font-size: 1.5rem;
+        font-weight: 700;
+    }
+
+    .price-card.current p:last-child {
+        color: #1e40af;
+    }
+
+    .price-card.forecast p:last-child {
+        color: #0bc29a;
+    }
+
+    .price-card.forecast.decrease p:last-child {
+        color: #dc2626;
+    }
+
+    .trend-indicator {
+        padding: 1.5rem;
+        border-radius: 0.5rem;
+        border: 1px solid;
+        margin-bottom: 1.5rem;
+    }
+
+    .trend-indicator.increase {
+        background: #dcfce7;
+        border-color: #bbf7d0;
+    }
+
+    .trend-indicator.decrease {
+        background: #fee2e2;
+        border-color: #fecaca;
+    }
+
+    .trend-content {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .trend-info {
+        display: flex;
+        align-items: center;
+    }
+
+    .trend-icon {
+        width: 2rem;
+        height: 2rem;
+        margin-right: 0.75rem;
+        font-size: 1.5rem;
+    }
+
+    .trend-text h3 {
+        font-size: 1.125rem;
+        font-weight: 600;
+        margin-bottom: 0.25rem;
+    }
+
+    .trend-indicator.increase .trend-text h3 {
+        color: #15803d;
+    }
+
+    .trend-indicator.decrease .trend-text h3 {
+        color: #dc2626;
+    }
+
+    .trend-text p {
+        font-size: 0.875rem;
+    }
+
+    .trend-indicator.increase .trend-text p {
+        color: #166534;
+    }
+
+    .trend-indicator.decrease .trend-text p {
+        color: #991b1b;
+    }
+
+    .details-card {
+        padding: 1rem;
+        border-radius: 0.5rem;
+    }
+
+    .details-card h3 {
+        font-weight: 600;
+        margin-bottom: 0.75rem;
+    }
+
+    .details-list {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .detail-row {
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.875rem;
+    }
+
+    .detail-row span:first-child {
+        color: #6b7280;
+    }
+
+    .detail-row span:last-child {
+        font-weight: 500;
+    }
+
+    .footer {
+        text-align: center;
+        margin-top: 3rem;
+        color: #6b7280;
+    }
+
+    @media (max-width: 768px) {
+        .main-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .form-row {
+            grid-template-columns: 1fr;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+        }
+
+        .header p {
+            font-size: 1rem;
+        }
+
+        .container {
+            padding: 1rem;
+        }
+
+        .price-grid {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .trend-info {
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .trend-text h3 {
+            font-size: 1.1rem;
+        }
+
+        .trend-text p {
+            font-size: 0.85rem;
+        }
+    }
+</style>
+<div class="main-content app-content" style="min-height: 100vh">
+    <div class="container-fluid">
+        <!-- Page Header -->
+        <div class="d-md-flex d-block align-items-center justify-content-between my-4 page-header-breadcrumb">
+            <div class="my-auto">
+                <h5 class="page-title fs-21 mb-1">Price Forecasting</h5>
+                <nav>
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item">
+                            <a href="javascript:void(0);">Pages</a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">
+                            Price Forecasting
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <!-- Page Header Close -->
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card custom-card">
+                    <div class="card-body">
+                        <button class="btn btn-primary" type="button" id="back_btn"> <i
+                                class="bi bi-arrow-left-circle me-1"></i>Back to Market</button>
+                        <div class="container">
+                            <div class="header">
+                                <center>
+                                    <h3>{{ commodity }} Price Forecasting</h3>
+                                    <p>
+                                        Get accurate price predictions for vegetables across
+                                        different markets and seasons. The current price of {{
+                                        commodity }} is
+                                        <strong class="text-danger">₱{{ price }}</strong>
+                                    </p>
+                                </center>
+                            </div>
+
+                            <div class="main-grid">
+                                <!-- Form Card -->
+                                <div class="card">
+                                    <h2>Forecast Parameters</h2>
+
+                                    <form id="forecastForm">
+                                        <!-- Commodity Selection -->
+                                        <div class="form-group">
+                                            <label for="commodity"> <i class="bi bi-basket-fill"></i> Commodity</label>
+                                            <input type="text" class="form-control" value="{{ commodity}}"
+                                                id="commodity" />
+                                        </div>
+
+                                        <!-- Year and Month -->
+                                        <div class="form-row">
+                                            <div class="form-group">
+                                                <label for="year"><i class="bi bi-calendar"></i>  Year</label>
+                                                <input type="text" class="form-control" id="year" />
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="month"><i class="bi bi-calendar"></i> Month</label>
+                                                <select id="month" class="form-select" required>
+                                                    <option value="">Select month...</option>
+                                                    <option value="January">January</option>
+                                                    <option value="February">February</option>
+                                                    <option value="March">March</option>
+                                                    <option value="April">April</option>
+                                                    <option value="May">May</option>
+                                                    <option value="June">June</option>
+                                                    <option value="July">July</option>
+                                                    <option value="August">August</option>
+                                                    <option value="September">September</option>
+                                                    <option value="October">October</option>
+                                                    <option value="November">November</option>
+                                                    <option value="December">December</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <!-- Market Location -->
+                                        <div class="form-group">
+                                            <label for="market">
+                                                <i class="bi bi-geo-alt-fill"></i> Market Location
+                                            </label>
+                                            <select id="market" required class="form-select" id="market">
+                                                <option value="">Choose a market...</option>
+                                                <option>
+                                                    Metropolitan Manila, Metro Manila Market
+                                                </option>
+                                                <option>Bulacan, Bulacan Market</option>
+                                                <option>Bulacan, Pampanga Market</option>
+                                                <option>Laguna, Laguna Market</option>
+                                                <option>Cavite, Cavite Market</option>
+                                                <option>Rizal, Rizal Market</option>
+                                            </select>
+                                        </div>
+
+                                        <!-- Submit Button -->
+                                        <button type="button" class="btn btn-primary" id="forecast_btn"
+                                            style="width: 100%">
+                                            <i class="bi bi-bar-chart-fill me-1"></i>
+                                            Get Price Forecast
+                                        </button>
+                                    </form>
+                                </div>
+
+                                <!-- Results Card -->
+                                <div class="card">
+                                    <h2>Forecast Results</h2>
+
+                                    <div id="emptyState" class="empty-state">
+                                        <div class="empty-state-icon">📊</div>
+                                        <p>Fill out the form to see price forecasts</p>
+                                    </div>
+
+                                    <div id="loadingState" class="loading-state" style="display: none">
+                                        <div class="loading-spinner"></div>
+                                        <p>Analyzing market data...</p>
+                                    </div>
+
+                                    <div id="resultsContent" style="display: none">
+                                        <!-- Price Grid -->
+                                        <div class="price-grid">
+                                            <div class="price-card current">
+                                                <p>Current Price</p>
+                                                <p id="currentPrice"></p>
+                                            </div>
+                                            <div class="price-card forecast" id="forecastCard">
+                                                <p>Forecasted Price</p>
+                                                <p id="forecastedPrice">₱0.00/kg</p>
+                                            </div>
+                                        </div>
+
+                                        <!-- Trend Indicator -->
+                                        <div class="trend-indicator" id="trendIndicator">
+                                            <div class="trend-content">
+                                                <div class="trend-info">
+                                                    <div class="trend-icon" id="trendIcon"></div>
+                                                    <div class="trend-text">
+                                                        <h3 id="trendTitle"></h3>
+                                                        <p id="trendSubtitle"></p>
+                                                        <p id="pred_kg"></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Forecast Details -->
+                                        <div class="details-card">
+                                            <h3>Forecast Details</h3>
+                                            <div class="details-list">
+                                                <div class="detail-row">
+                                                    <span>Commodity:</span>
+                                                    <span id="detailCommodity">-</span>
+                                                </div>
+                                                <div class="detail-row">
+                                                    <span>Period:</span>
+                                                    <span id="detailPeriod">-</span>
+                                                </div>
+                                                <div class="detail-row">
+                                                    <span>Market:</span>
+                                                    <span id="detailMarket">-</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Footer -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+
+    $(document).on('click', '#back_btn', function () {
+        window.location.href = '/market';
+    })
+    $(document).on("click", "#forecast_btn", function () {
+        $("#emptyState").css("display", "none");
+        $("#loadingState").css("display", "block");
+        $("#resultsContent").css("display", "none");
+
+        // Delay showing loading state
+        setTimeout(function () {
+            $("#loadingState").css("display", "none");
+            $("#resultsContent").css("display", "block");
+
+            var commodity = $("#commodity").val();
+            var year = $("#year").val();
+            var month = $("#month").val();
+            var market_location = $('#market').val();
+            var price = "{{ price }}"
+
+            $.ajax({
+                url: "/predict_price",
+                type: "POST",
+                headers: {
+                    "X-CSRFToken": "{{ csrf_token() }}",
+                },
+                data: {
+                    year: year,
+                    month: month,
+                    commodity: commodity,
+                    market_location: market_location,
+                    price: price
+                },
+                success: function (response) {
+                    $('#currentPrice').html('₱' + price + '/kg');
+                    $('#forecastedPrice').html('₱' + response.output + '/kg');
+                    $('#trendIcon').html(response.trend)
+                    $('#trendTitle').html('Price Expected to ' + response.inc)
+                    $('#trendSubtitle').html(response.percent + '% change is expected').addClass(response.color)
+                    $('#pred_kg').html(response.kg_text)
+                    $('#detailCommodity').html(commodity)
+                    $('#detailPeriod').html(month + ', ' + year)
+                    $('#detailMarket').html(market_location)
+                }
+            });
+
+        }, 1500); // 1000ms = 1 second
+    });
+</script>
+{% endblock %}
