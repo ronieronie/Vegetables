@@ -5,6 +5,7 @@ from flask import render_template, redirect, session, request, jsonify
 import calendar
 from flask_wtf.csrf import CSRFProtect
 import statistics
+import os 
 # from market.models import Item, User
 # from market.forms import RegisterForm, LoginForm
 
@@ -15,8 +16,14 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 
 csrf = CSRFProtect(app)
-model = pickle.load(open('C:\\Users\\cardo\\FlaskMarket\\market\\model.pkl','rb'))
-kgmodel = pickle.load(open('C:\\Users\\cardo\\\FlaskMarket\\market\\kgmodel.pkl','rb'))
+
+basedir = os.path.dirname(__file__)
+
+model_path = os.path.join(basedir, 'model.pkl')
+kgmodel_path = os.path.join(basedir, 'kgmodel.pkl')
+
+model = pickle.load(open(model_path, 'rb'))
+kgmodel = pickle.load(open(kgmodel_path, 'rb'))
 
 logged_user = ''
 
