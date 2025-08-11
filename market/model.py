@@ -2,6 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 import pickle
+import sklearn
 
 df = pd.read_csv('model.csv')
 
@@ -16,3 +17,5 @@ ml.fit(x,y)
 pickle.dump(ml, open('model.pkl','wb'))
 model = pickle.load(open('model.pkl','rb'))
 
+
+print(f"✅ Model trained with scikit-learn version: {sklearn.__version__}")
