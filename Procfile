@@ -1,1 +1,1 @@
-web: gunicorn market.app:app
+web: gunicorn market:app
