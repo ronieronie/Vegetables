@@ -24,11 +24,16 @@ app = Flask(__name__)
 # database = os.getenv('MYSQLDATABASE', 'railway')
 
 app.secret_key = os.getenv('SECRET_KEY')
+username = os.getenv('MYSQLUSER')
+password = os.getenv('MYSQLPASSWORD')
+host = os.getenv('MYSQLHOST')
+port = os.getenv('MYSQLPORT')  # Railway port from your URL
+database = os.getenv('MYSQLDATABASE')
 
-database_url = os.getenv('DATABASE_URL', 'mysql://root:hElzjxVLpYsPkaiulbRTVpFQgHTvgaXz@mysql.railway.internal:3306/railway')
-
-app.config['SQLALCHEMY_DATABASE_URI'] = database_url
+app.config['SQLALCHEMY_DATABASE_URI'] = f"mysql+pymysql://{username}:{password}@{host}:{port}/{database}"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+
 db.init_app(app)
 
 from market import routes
