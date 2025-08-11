@@ -12,7 +12,7 @@ app = Flask(__name__)
 # login_manager.login_message_category = "info"
 
 
-app.secret_key = 'supersecretkey'
+app.secret_key = os.getenv('SECRET_KEY', 'supersecretkey')
 
 
 username = os.getenv('MYSQLUSER', 'root')
