@@ -162,8 +162,8 @@
                         <li class="breadcrumb-item">
                             <a href="javascript:void(0);">Pages</a>
                         </li>
-                        <li class="breadcrumb-item active" aria-current="page">
-                            Market Info
+                        <li class="active" aria-current="page">
+                            &nbsp;» Market Info
                         </li>
                     </ol>
                 </nav>
@@ -326,77 +326,101 @@
 
 <!-- Imternal Chartjs JS -->
 <script src="../static/js/chartjs-charts.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-
     var get_data = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     $(document).on('click', '#generate_chart', function () {
         var location = $('#location').val();
         var commodities = $('#commodity').val();
-        $.ajax({
-            url: "/marketchart",
-            type: "POST",
-            headers: {
-                "X-CSRFToken": "{{ csrf_token() }}",
-            },
-            data: {
-                location: location,
-                commodities: commodities
-            },
-            success: function (response) {
-                if (response.data.every(value => value === 0)) {
-                    $('.chart-container').css('display', 'block');
-                    $('.chartjs-chart').css('display', 'none');
-                    $('.chart-description').css('display', 'none');
-                    $('#no_data').css('display', 'block')
-                    $('.chart-wrapper').css('height', '50px');
+
+
+        if (location === '' || commodities === '') {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Warning',
+                text: 'Please fill in all required fields.'
+            });
+        }
+        else {
+            Swal.fire({
+                title: 'Generating price trend anaylysis...',
+                text: 'Please wait while we prepare the data.',
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                    setTimeout(() => {
+                        $.ajax({
+                            url: "/marketchart",
+                            type: "POST",
+                            headers: {
+                                "X-CSRFToken": "{{ csrf_token() }}",
+                            },
+                            data: {
+                                location: location,
+                                commodities: commodities
+                            },
+                            success: function (response) {
+                                if (response.data.every(value => value === 0)) {
+                                    $('.chart-container').css('display', 'block');
+                                    $('.chartjs-chart').css('display', 'none');
+                                    $('.chart-description').css('display', 'none');
+                                    $('#no_data').css('display', 'block')
+                                    $('.chart-wrapper').css('height', '50px');
+                                }
+                                else {
+                                    $('.chart-container').css('display', 'block');
+                                    $('.chart-description').css('display', 'block');
+                                    $('.chartjs-chart').css('display', 'block');
+                                    $('#no_data').css('display', 'none')
+                                    $('.chart-wrapper').css('height', '400px');
+                                    $('#description1').html(response.text2)
+                                    myChart1.data.datasets[0].data = response.data;
+
+                                    if (response.month == 8) {
+                                        myChart1.data.labels = ["May", "June", "July", "Aug", "Sep", "Oct", "Nov", "Dec"];
+                                    }
+                                    else if (response.month == 10) {
+                                        myChart1.data.labels = ["Mar", "Apr", "May", "June", "July", "Aug", "Sep", "Oct", "Nov", "Dec"]
+                                    }
+                                    else {
+                                        myChart1.data.labels = ['January',
+                                            'February',
+                                            'March',
+                                            'April',
+                                            'May',
+                                            'June',
+                                            'July',
+                                            'August',
+                                            'September',
+                                            'October',
+                                            'November',
+                                            'December'];
+                                    }
+                                    myChart1.update();
+
+                                    var price_data = myChart1.data.datasets[0].data;
+                                    var labels = myChart1.data.labels;
+
+                                    const maxValue = Math.max(...price_data);
+                                    const minValue = Math.min(...price_data);
+
+                                    const highestLabels = labels.filter((label, idx) => price_data[idx] === maxValue);
+                                    const lowestLabels = labels.filter((label, idx) => price_data[idx] === minValue);
+                                    $('#peakMonth').html('<strong>Peak Month: </strong>' + highestLabels);
+                                    $('#lowestMonth').html('<strong>Lowest Month: </strong>' + lowestLabels)
+                                    $('#chartTitle').html(commodities + ' Price Trends in ' + location)
+                                }
+
+
+                            }
+                        });
+                        Swal.close();
+                    }, 2000);
                 }
-                else {
-                    $('.chart-container').css('display', 'block');
-                    $('.chart-description').css('display', 'block');
-                    $('.chartjs-chart').css('display', 'block');
-                    $('#no_data').css('display', 'none')
-                    $('.chart-wrapper').css('height', '400px');
-                    $('#description1').html(response.text2)
-                    myChart1.data.datasets[0].data = response.data;
+            });
 
-                    if (response.month == 8) {
-                        myChart1.data.labels = ["May", "June", "July", "Aug", "Sep", "Oct", "Nov", "Dec"];
-                    }
-                    else if (response.month == 10) {
-                        myChart1.data.labels = ["Mar", "Apr", "May", "June", "July", "Aug", "Sep", "Oct", "Nov", "Dec"]
-                    }
-                    else {
-                        myChart1.data.labels = ['January',
-                            'February',
-                            'March',
-                            'April',
-                            'May',
-                            'June',
-                            'July',
-                            'August',
-                            'September',
-                            'October',
-                            'November',
-                            'December'];
-                    }
-                    myChart1.update();
+        }
 
-                    var price_data = myChart1.data.datasets[0].data;
-                    var labels = myChart1.data.labels;
-
-                    const maxValue = Math.max(...price_data);
-                    const minValue = Math.min(...price_data);
-
-                    const highestLabels = labels.filter((label, idx) => price_data[idx] === maxValue);
-                    const lowestLabels = labels.filter((label, idx) => price_data[idx] === minValue);
-                    $('#peakMonth').html('<strong>Peak Month: </strong>' + highestLabels);
-                    $('#lowestMonth').html('<strong>Lowest Month: </strong>' + lowestLabels)
-                    $('#chartTitle').html(commodities + ' Price Trends in ' + location)
-                }
-
-
-            }
-        });
     })
 
     const labels1 = [

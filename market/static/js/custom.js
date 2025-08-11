@@ -302,7 +302,7 @@
   /* Choices JS */
 
   /* footer year */
-  document.getElementById("year").innerHTML = new Date().getFullYear();
+//   document.getElementById("year").innerHTML = new Date().getFullYear();
   /* footer year */
 
   /* node waves */
@@ -380,8 +380,8 @@
   );
   new SimpleBar(myHeadernotification, { autoHide: true });
 
-  var myHeaderCart = document.getElementById("header-cart-items-scroll");
-  new SimpleBar(myHeaderCart, { autoHide: true });
+//   var myHeaderCart = document.getElementById("header-cart-items-scroll");
+//   new SimpleBar(myHeaderCart, { autoHide: true });
   /* header dropdowns scroll */
 })();
 

@@ -335,8 +335,8 @@ block content %}
                         <li class="breadcrumb-item">
                             <a href="javascript:void(0);">Pages</a>
                         </li>
-                        <li class="breadcrumb-item active" aria-current="page">
-                            Price Forecasting
+                        <li class="active" aria-current="page">
+                            &nbsp;» Price Forecasting
                         </li>
                     </ol>
                 </nav>
@@ -378,7 +378,7 @@ block content %}
                                         <!-- Year and Month -->
                                         <div class="form-row">
                                             <div class="form-group">
-                                                <label for="year"><i class="bi bi-calendar"></i>  Year</label>
+                                                <label for="year"><i class="bi bi-calendar"></i> Year</label>
                                                 <input type="text" class="form-control" id="year" />
                                             </div>
 
@@ -502,55 +502,65 @@ block content %}
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
 
     $(document).on('click', '#back_btn', function () {
         window.location.href = '/market';
     })
     $(document).on("click", "#forecast_btn", function () {
-        $("#emptyState").css("display", "none");
-        $("#loadingState").css("display", "block");
-        $("#resultsContent").css("display", "none");
+        var commodity = $("#commodity").val();
+        var year = $("#year").val();
+        var month = $("#month").val();
+        var market_location = $('#market').val();
+        var price = "{{ price }}"
 
-        // Delay showing loading state
-        setTimeout(function () {
-            $("#loadingState").css("display", "none");
-            $("#resultsContent").css("display", "block");
 
-            var commodity = $("#commodity").val();
-            var year = $("#year").val();
-            var month = $("#month").val();
-            var market_location = $('#market').val();
-            var price = "{{ price }}"
-
-            $.ajax({
-                url: "/predict_price",
-                type: "POST",
-                headers: {
-                    "X-CSRFToken": "{{ csrf_token() }}",
-                },
-                data: {
-                    year: year,
-                    month: month,
-                    commodity: commodity,
-                    market_location: market_location,
-                    price: price
-                },
-                success: function (response) {
-                    $('#currentPrice').html('₱' + price + '/kg');
-                    $('#forecastedPrice').html('₱' + response.output + '/kg');
-                    $('#trendIcon').html(response.trend)
-                    $('#trendTitle').html('Price Expected to ' + response.inc)
-                    $('#trendSubtitle').html(response.percent + '% change is expected').addClass(response.color)
-                    $('#pred_kg').html(response.kg_text)
-                    $('#detailCommodity').html(commodity)
-                    $('#detailPeriod').html(month + ', ' + year)
-                    $('#detailMarket').html(market_location)
-                }
+        if (year === '' || month == '' || market_location == '') {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Warning',
+                text: 'Please fill in all required fields.'
             });
+        }
+        else {
+            $("#emptyState").css("display", "none");
+            $("#loadingState").css("display", "block");
+            $("#resultsContent").css("display", "none");
 
-        }, 1500); // 1000ms = 1 second
+            // Delay showing loading state
+            setTimeout(function () {
+                $("#loadingState").css("display", "none");
+                $("#resultsContent").css("display", "block");
+                $.ajax({
+                    url: "/predict_price",
+                    type: "POST",
+                    headers: {
+                        "X-CSRFToken": "{{ csrf_token() }}",
+                    },
+                    data: {
+                        year: year,
+                        month: month,
+                        commodity: commodity,
+                        market_location: market_location,
+                        price: price
+                    },
+                    success: function (response) {
+                        $('#currentPrice').html('₱' + price + '/kg');
+                        $('#forecastedPrice').html('₱' + response.output + '/kg');
+                        $('#trendIcon').html(response.trend)
+                        $('#trendTitle').html('Price Expected to ' + response.inc)
+                        $('#trendSubtitle').html(response.percent + '% change is expected').addClass(response.color)
+                        $('#pred_kg').html(response.kg_text)
+                        $('#detailCommodity').html(commodity)
+                        $('#detailPeriod').html(month + ', ' + year)
+                        $('#detailMarket').html(market_location)
+                    }
+                });
+
+            }, 1500); // 1000ms = 1 second
+        }
+
     });
 </script>
 {% endblock %}

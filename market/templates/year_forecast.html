@@ -71,8 +71,8 @@
                         <li class="breadcrumb-item">
                             <a href="javascript:void(0);">Pages</a>
                         </li>
-                        <li class="breadcrumb-item active" aria-current="page">
-                            Yearly Forecast
+                        <li class="active" aria-current="page">
+                            &nbsp;» Yearly Forecast
                         </li>
                     </ol>
                 </nav>
@@ -166,7 +166,7 @@
             </div>
         </div>
 
-        <div class="row">
+        <div class="row" style="display: none" id="market_overview">
             <div class="col-md-12 col-xl-4">
                 <div class="card">
                     <div class="card-body">
@@ -243,7 +243,7 @@
             </div>
         </div>
 
-        <div class="row">
+        <div class="row" id="market_data" style="display: none;">
             <div class="col-md-12 col-lg-4 col-xl-4">
                 <div class="card top-countries-card">
                     <div class="card-header p-0">
@@ -744,60 +744,85 @@
 
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     $(document).on('click', '#forecast_btn', function () {
         var year = $('#year').val();
         var veg = $('#commodity').val()
+        if (year === "" || veg === "") {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Warning',
+                text: 'Please fill in all required fields.'
+            });
+        }
+        else {
+            Swal.fire({
+                title: 'Generating forecast data...',
+                text: 'Please wait while we prepare your data.',
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                    setTimeout(() => {
 
-        $.ajax({
-            url: "/ypredict",
-            type: "POST",
-            headers: {
-                "X-CSRFToken": "{{ csrf_token() }}",
-            },
-            data: {
-                veg: veg,
-                year: year,
-            },
-            success: function (response) {
-                $('#best_market').html(response.best_market);
-                $('#best_ave').html(response.best_ave.toFixed(2));
-                $('#min_price').html(response.min_pred_price.toFixed(2));
-                $('#max_price').html(response.max_pred_price.toFixed(2));
-                $('#prices_ave').html(response.prices_ave.toFixed(2));
-                $('#mtr_ave').html('₱' + response.mtr_ave.toFixed(2))
-                $('#mtr_max_val').html('₱' + response.mtr_max.toFixed(2));
-                $('#mtr_min_val').html('₱' + response.mtr_min.toFixed(2));
-                $('#pam_ave').html('₱' + response.pam_ave.toFixed(2))
-                $('#pam_max_val').html('₱' + response.pam_max.toFixed(2));
-                $('#pam_min_val').html('₱' + response.pam_min.toFixed(2));
-                $('#riz_ave').html('₱' + response.riz_ave.toFixed(2))
-                $('#riz_max_val').html('₱' + response.riz_max.toFixed(2));
-                $('#riz_min_val').html('₱' + response.riz_min.toFixed(2));
-                // CAV version
-                $('#cav_ave').html('₱' + response.cav_ave.toFixed(2));
-                $('#cav_max_val').html('₱' + response.cav_max.toFixed(2));
-                $('#cav_min_val').html('₱' + response.cav_min.toFixed(2));
 
-                // LAG version
-                $('#lag_ave').html('₱' + response.lag_ave.toFixed(2));
-                $('#lag_max_val').html('₱' + response.lag_max.toFixed(2));
-                $('#lag_min_val').html('₱' + response.lag_min.toFixed(2));
+                        $.ajax({
+                            url: "/ypredict",
+                            type: "POST",
+                            headers: {
+                                "X-CSRFToken": "{{ csrf_token() }}",
+                            },
+                            data: {
+                                veg: veg,
+                                year: year,
+                            },
+                            success: function (response) {
+                                $('#market_overview').css('display', 'flex');
+                                $('#market_data').css('display', 'flex');
+                                $('#best_market').html(response.best_market);
+                                $('#best_ave').html(response.best_ave.toFixed(2));
+                                $('#min_price').html(response.min_pred_price.toFixed(2));
+                                $('#max_price').html(response.max_pred_price.toFixed(2));
+                                $('#prices_ave').html(response.prices_ave.toFixed(2));
+                                $('#mtr_ave').html('₱' + response.mtr_ave.toFixed(2))
+                                $('#mtr_max_val').html('₱' + response.mtr_max.toFixed(2));
+                                $('#mtr_min_val').html('₱' + response.mtr_min.toFixed(2));
+                                $('#pam_ave').html('₱' + response.pam_ave.toFixed(2))
+                                $('#pam_max_val').html('₱' + response.pam_max.toFixed(2));
+                                $('#pam_min_val').html('₱' + response.pam_min.toFixed(2));
+                                $('#riz_ave').html('₱' + response.riz_ave.toFixed(2))
+                                $('#riz_max_val').html('₱' + response.riz_max.toFixed(2));
+                                $('#riz_min_val').html('₱' + response.riz_min.toFixed(2));
+                                // CAV version
+                                $('#cav_ave').html('₱' + response.cav_ave.toFixed(2));
+                                $('#cav_max_val').html('₱' + response.cav_max.toFixed(2));
+                                $('#cav_min_val').html('₱' + response.cav_min.toFixed(2));
 
-                // BUL version
-                $('#bul_ave').html('₱' + response.bul_ave.toFixed(2));
-                $('#bul_max_val').html('₱' + response.bul_max.toFixed(2));
-                $('#bul_min_val').html('₱' + response.bul_min.toFixed(2));
-                for (let i = 0; i < 12; i++) {
-                    $('#mtr_' + i).html('₱' + response.mtr_data[i].toFixed(2));
-                    $('#pam_' + i).html('₱' + response.pam_data[i].toFixed(2));
-                    $('#riz_' + i).html('₱' + response.riz_data[i].toFixed(2));
-                    $('#cav_' + i).html('₱' + response.cav_data[i].toFixed(2));
-                    $('#lag_' + i).html('₱' + response.lag_data[i].toFixed(2));
-                    $('#bul_' + i).html('₱' + response.bul_data[i].toFixed(2));
+                                // LAG version
+                                $('#lag_ave').html('₱' + response.lag_ave.toFixed(2));
+                                $('#lag_max_val').html('₱' + response.lag_max.toFixed(2));
+                                $('#lag_min_val').html('₱' + response.lag_min.toFixed(2));
+
+                                // BUL version
+                                $('#bul_ave').html('₱' + response.bul_ave.toFixed(2));
+                                $('#bul_max_val').html('₱' + response.bul_max.toFixed(2));
+                                $('#bul_min_val').html('₱' + response.bul_min.toFixed(2));
+                                for (let i = 0; i < 12; i++) {
+                                    $('#mtr_' + i).html('₱' + response.mtr_data[i].toFixed(2));
+                                    $('#pam_' + i).html('₱' + response.pam_data[i].toFixed(2));
+                                    $('#riz_' + i).html('₱' + response.riz_data[i].toFixed(2));
+                                    $('#cav_' + i).html('₱' + response.cav_data[i].toFixed(2));
+                                    $('#lag_' + i).html('₱' + response.lag_data[i].toFixed(2));
+                                    $('#bul_' + i).html('₱' + response.bul_data[i].toFixed(2));
+                                }
+                            }
+                        });
+                        Swal.close();
+                    }, 2000);
                 }
-            }
-        });
+            });
+        }
+
     })
 </script>
 
