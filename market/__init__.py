@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 db = SQLAlchemy()
-
+import os
 app = Flask(__name__)
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///market.db'
 # app.config['SECRET_KEY'] = '1e32f81eb715404d20b202fd'
@@ -13,12 +13,15 @@ app = Flask(__name__)
 
 
 app.secret_key = 'supersecretkey'
-username = "root"
-password = "1234"
-host = "localhost"
-database = "flaskmarket"
 
-app.config['SQLALCHEMY_DATABASE_URI'] = f"mysql+pymysql://{username}:{password}@{host}/{database}"
+
+username = os.getenv('MYSQLUSER', 'root')
+password = os.getenv('MYSQLPASSWORD', 'hElzjxVLpYsPkaiulbRTVpFQgHTvgaXz')
+host = os.getenv('MYSQLHOST', 'localhost')
+port = os.getenv('MYSQLPORT', '3306')  # default MySQL port
+database = os.getenv('MYSQLDATABASE', 'railway')  # replace 'railway' with your actual DB name
+
+app.config['SQLALCHEMY_DATABASE_URI'] = f"mysql+pymysql://{username}:{password}@{host}:{port}/{database}"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db.init_app(app)
