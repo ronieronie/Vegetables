@@ -18,11 +18,11 @@ app = Flask(__name__)
 
 #localhost
 # app.secret_key = 'supersecretkey'  # or use os.getenv('SECRET_KEY')
-# username = os.getenv('MYSQLUSER', 'root')
-# password = os.getenv('MYSQLPASSWORD', 'hElzjxVLpYsPkaiulbRTVpFQgHTvgaXz')
-# host = os.getenv('MYSQLHOST', 'interchange.proxy.rlwy.net')
-# port = os.getenv('MYSQLPORT', '15150')  # Railway port from your URL
-# database = os.getenv('MYSQLDATABASE', 'railway')
+username = os.getenv('MYSQLUSER')
+password = os.getenv('MYSQLPASSWORD')
+host = os.getenv('MYSQLHOST')
+port = os.getenv('MYSQLPORT')  # Railway port from your URL
+database = os.getenv('MYSQLDATABASE')
 
 app.secret_key = os.getenv('SECRET_KEY')
 # username = os.getenv('MYSQLUSER')
@@ -31,25 +31,25 @@ app.secret_key = os.getenv('SECRET_KEY')
 # port = os.getenv('MYSQLPORT')  # Railway port from your URL
 # database = os.getenv('MYSQLDATABASE')
 
-# app.config['SQLALCHEMY_DATABASE_URI'] = f"mysql+pymysql://{username}:{password}@{host}:{port}/{database}"
-# app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SQLALCHEMY_DATABASE_URI'] = f"mysql+pymysql://{username}:{password}@{host}:{port}/{database}"
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 
-username = os.getenv('MYSQLUSER')
-password = os.getenv('MYSQLPASSWORD')
-host = os.getenv('MYSQLHOST')
-port = os.getenv('MYSQLPORT')
-database = os.getenv('MYSQLDATABASE')
+# username = os.getenv('MYSQLUSER')
+# password = os.getenv('MYSQLPASSWORD')
+# host = os.getenv('MYSQLHOST')
+# port = os.getenv('MYSQLPORT')
+# database = os.getenv('MYSQLDATABASE')
 
-uri = f"mysql+pymysql://{username}:{password}@{host}:{port}/{database}"
-engine = create_engine(uri, pool_pre_ping=True)
+# uri = f"mysql+pymysql://{username}:{password}@{host}:{port}/{database}"
+# engine = create_engine(uri, pool_pre_ping=True)
 
-try:
-    with engine.connect() as conn:
-        result = conn.execute("SELECT 1")
-        print("✅ Connected to MySQL:", result.scalar())
-except Exception as e:
-    print("Connection failed:", e)
+# try:
+#     with engine.connect() as conn:
+#         result = conn.execute("SELECT 1")
+#         print("✅ Connected to MySQL:", result.scalar())
+# except Exception as e:
+#     print("Connection failed:", e)
 
 
 db.init_app(app)
