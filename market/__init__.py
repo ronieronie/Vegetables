@@ -23,12 +23,14 @@ app = Flask(__name__)
 # port = os.getenv('MYSQLPORT', '15150')  # Railway port from your URL
 # database = os.getenv('MYSQLDATABASE', 'railway')
 
-app.secret_key = os.getenv('SECRET_KEY', 'supersecretkey')
-username = os.getenv('MYSQLUSER', 'root')
-password = os.getenv('MYSQLPASSWORD', 'hElzjxVLpYsPkaiulbRTVpFQgHTvgaXz')
-host = os.getenv('MYSQLHOST', 'mysql.railway.internal')
-port = os.getenv('MYSQLPORT', '3306')  # Railway port from your URL
-database = os.getenv('MYSQLDATABASE', 'railway')
+app.secret_key = os.getenv('SECRET_KEY')
+
+
+username = os.getenv('MYSQLUSER')
+password = os.getenv('MYSQLPASSWORD')
+host = os.getenv('MYSQLHOST')
+port = os.getenv('MYSQLPORT')
+database = os.getenv('MYSQLDATABASE')
 
 app.config['SQLALCHEMY_DATABASE_URI'] = f"mysql+pymysql://{username}:{password}@{host}:{port}/{database}"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
