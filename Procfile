@@ -1,1 +1,1 @@
-web: gunicorn market:app
+web: python app.py
