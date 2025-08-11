@@ -83,7 +83,13 @@
       }
    </style>
 </html>  -->
-
+<style>
+    @media (max-width: 768px) {
+        #contact_container {
+            padding: 20px;
+        }
+    }
+</style>
 <!DOCTYPE html>
 <html lang="en" dir="ltr" data-nav-layout="horizontal" data-nav-style="menu-click" data-menu-position="fixed"
     data-theme-mode="light">
@@ -99,7 +105,7 @@
 
     <!-- Favicon -->
     <link rel="icon" href="../static/title_logo.png" type="image/x-icon" />
-
+    <link href="../static/css/icons.css" rel="stylesheet">
     <!-- Bootstrap Css -->
     <link id="style" href="../static/libs/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
 
@@ -830,7 +836,7 @@
                             </div>
                         </div>
                         <div class="col-xl-4">
-                            <div class="px-4">
+                            <div class="px-4" id="contact_container">
                                 <h6 class="fw-semibold text-fixed-white">Contact</h6>
                                 <ul class="list-unstyled fw-normal landing-footer-list">
                                     <li>
@@ -853,8 +859,8 @@
                         </div>
                         <div class="col-xl-4">
 
-                            <p class="mb-2 fw-semibold op-8">FOLLOW US ON :</p>
-                            <div class="mb-0">
+                            <p class="mb-2 fw-semibold op-8 px-4">FOLLOW US ON :</p>
+                            <div class="mb-0 px-4">
                                 <div class="btn-list">
                                     <button class="btn btn-sm btn-icon btn-wave waves-effect waves-light">
                                         <i class="ri-facebook-line fw-bold"></i>
@@ -880,7 +886,7 @@
             </section>
             <!-- End:: Section-10 -->
 
-            <div class="text-center landing-main-footer py-3">
+            <div class="text-center landing-main-footer py-3" style="display: none;">
                 <span class="text-muted fs-15">
                     Copyright © <span id="year"></span>
                     <a href="javascript:void(0);" class="text-primary fw-semibold"><u>Valex</u></a>. Designed with <span

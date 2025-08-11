@@ -2,33 +2,33 @@
     "use strict";
 
     /* line chart  */
-    Chart.defaults.borderColor = "rgba(142, 156, 173,0.1)", Chart.defaults.color = "#8c9097";
-    const labels = [
-        'January',
-        'February',
-        'March',
-        'April',
-        'May',
-        'June',
-    ];
-    const data = {
-        labels: labels,
-        datasets: [{
-            label: 'My First dataset',
-            backgroundColor: 'rgb(132, 90, 223)',
-            borderColor: 'rgb(132, 90, 223)',
-            data: [0, 10, 5, 2, 20, 30, 45],
-        }]
-    };
-    const config = {
-        type: 'line',
-        data: data,
-        options: {}
-    };
-    const myChart = new Chart(
-        document.getElementById('chartjs-line'),
-        config
-    );
+    // Chart.defaults.borderColor = "rgba(142, 156, 173,0.1)", Chart.defaults.color = "#8c9097";
+    // const labels = [
+    //     'January',
+    //     'February',
+    //     'March',
+    //     'April',
+    //     'May',
+    //     'June',
+    // ];
+    // const data = {
+    //     labels: labels,
+    //     datasets: [{
+    //         label: 'My First dataset',
+    //         backgroundColor: 'rgb(132, 90, 223)',
+    //         borderColor: 'rgb(132, 90, 223)',
+    //         data: [0, 10, 5, 2, 20, 30, 45],
+    //     }]
+    // };
+    // const config = {
+    //     type: 'line',
+    //     data: data,
+    //     options: {}
+    // };
+    // const myChart = new Chart(
+    //     document.getElementById('chartjs-line'),
+    //     config
+    // );
 
     /* bar chart */
     // const labels1 = [

@@ -6,6 +6,7 @@ import calendar
 from flask_wtf.csrf import CSRFProtect
 import statistics
 import os 
+from flask import flash
 # from market.models import Item, User
 # from market.forms import RegisterForm, LoginForm
 
@@ -58,7 +59,8 @@ def login():
     
     else:
         session.pop('user', None)
-        return "Invalid credentials", 401
+        flash('Form submitted successfully!')
+        return redirect('/get_login_page')
     
 @app.route('/market')
 def market_page():

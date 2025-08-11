@@ -3,45 +3,51 @@
     data-menu-styles="light" data-toggled="close">
 
 <head>
+
     <!-- Meta Data -->
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>{% block title %}My Flask App{% endblock %}</title>
-    <meta name="Description" content="Bootstrap Responsive Admin Web Dashboard HTML5 Template" />
-    <meta name="Author" content="Spruko Technologies Private Limited" />
+    <meta charset="UTF-8">
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title> Valex - Bootstrap 5 Premium Admin & Dashboard Template </title>
+    <meta name="Description" content="Bootstrap Responsive Admin Web Dashboard HTML5 Template">
+    <meta name="Author" content="Spruko Technologies Private Limited">
     <meta name="keywords"
-        content="admin dashboard template,admin panel html,bootstrap dashboard,admin dashboard,html template,template dashboard html,html css,bootstrap 5 admin template,bootstrap admin template,bootstrap 5 dashboard,admin panel html template,dashboard template bootstrap,admin dashboard html template,bootstrap admin panel,simple html template,admin dashboard bootstrap" />
+        content="admin dashboard template,admin panel html,bootstrap dashboard,admin dashboard,html template,template dashboard html,html css,bootstrap 5 admin template,bootstrap admin template,bootstrap 5 dashboard,admin panel html template,dashboard template bootstrap,admin dashboard html template,bootstrap admin panel,simple html template,admin dashboard bootstrap">
 
     <!-- Favicon -->
-    <link rel="icon" href="../static/title_logo.png" type="image/x-icon" />
-   
+    <link rel="icon" href="../static/images/brand-logos/favicon.ico" type="image/x-icon">
+
     <!-- Choices JS -->
+    <script src="../static/libs/choices.js/public/assets/scripts/choices.min.js"></script>
 
     <!-- Main Theme Js -->
     <script src="../static/js/main.js"></script>
 
     <!-- Bootstrap Css -->
-    <link id="style" href="../static/libs/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link id="style" href="../static/libs/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Style Css -->
-    <link href="../static/css/styles.min.css" rel="stylesheet" />
+    <link href="../static/css/styles.min.css" rel="stylesheet">
 
     <!-- Icons Css -->
-
+    <link href="../static/css/icons.css" rel="stylesheet">
 
     <!-- Node Waves Css -->
-    <link href="../static/libs/node-waves/waves.min.css" rel="stylesheet" />
+    <link href="../static/libs/node-waves/waves.min.css" rel="stylesheet">
 
     <!-- Simplebar Css -->
-    <link href="../static/libs/simplebar/simplebar.min.css" rel="stylesheet" />
+    <link href="../static/libs/simplebar/simplebar.min.css" rel="stylesheet">
 
     <!-- Color Picker Css -->
-    <link rel="stylesheet" href="../static/libs/flatpickr/flatpickr.min.css" />
-    <link rel="stylesheet" href="../static/libs/@simonwep/pickr/themes/nano.min.css" />
+    <link rel="stylesheet" href="../static/libs/flatpickr/flatpickr.min.css">
+    <link rel="stylesheet" href="../static/libs/@simonwep/pickr/themes/nano.min.css">
 
     <!-- Choices Css -->
+    <link rel="stylesheet" href="../static/libs/choices.js/public/assets/styles/choices.min.css">
 
+
+    <!-- Prism CSS -->
+    <link rel="stylesheet" href="../static/libs/prismjs/themes/prism-coy.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Quicksand&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
@@ -51,26 +57,26 @@
     </style>
 
 
-
 </head>
 
 <body>
-    <!-- Start Switcher -->
-    <div class="offcanvas offcanvas-end" tabindex="-1" id="switcher-canvas" aria-labelledby="offcanvasRightLabel">
 
+    <!-- Start Switcher -->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="switcher-canvas" aria-labelledby="offcanvasRightLabel"
+        style="display: none;">
+        <div class="offcanvas-header border-bottom">
+            <h5 class="offcanvas-title text-default" id="offcanvasRightLabel">Switcher</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
         <div class="offcanvas-body">
             <nav class="border-bottom border-block-end-dashed">
                 <div class="nav nav-tabs nav-justified" id="switcher-main-tab" role="tablist">
                     <button class="nav-link active" id="switcher-home-tab" data-bs-toggle="tab"
                         data-bs-target="#switcher-home" type="button" role="tab" aria-controls="switcher-home"
-                        aria-selected="true">
-                        Theme Styles
-                    </button>
+                        aria-selected="true">Theme Styles</button>
                     <button class="nav-link" id="switcher-profile-tab" data-bs-toggle="tab"
                         data-bs-target="#switcher-profile" type="button" role="tab" aria-controls="switcher-profile"
-                        aria-selected="false">
-                        Theme Colors
-                    </button>
+                        aria-selected="false">Theme Colors</button>
                 </div>
             </nav>
             <div class="tab-content" id="nav-tabContent">
@@ -85,7 +91,7 @@
                                         Light
                                     </label>
                                     <input class="form-check-input" type="radio" name="theme-style"
-                                        id="switcher-light-theme" checked />
+                                        id="switcher-light-theme" checked>
                                 </div>
                             </div>
                             <div class="col-4">
@@ -94,7 +100,7 @@
                                         Dark
                                     </label>
                                     <input class="form-check-input" type="radio" name="theme-style"
-                                        id="switcher-dark-theme" />
+                                        id="switcher-dark-theme">
                                 </div>
                             </div>
                         </div>
@@ -108,7 +114,7 @@
                                         LTR
                                     </label>
                                     <input class="form-check-input" type="radio" name="direction" id="switcher-ltr"
-                                        checked />
+                                        checked>
                                 </div>
                             </div>
                             <div class="col-4">
@@ -116,7 +122,7 @@
                                     <label class="form-check-label" for="switcher-rtl">
                                         RTL
                                     </label>
-                                    <input class="form-check-input" type="radio" name="direction" id="switcher-rtl" />
+                                    <input class="form-check-input" type="radio" name="direction" id="switcher-rtl">
                                 </div>
                             </div>
                         </div>
@@ -130,7 +136,7 @@
                                         Vertical
                                     </label>
                                     <input class="form-check-input" type="radio" name="navigation-style"
-                                        id="switcher-vertical" checked />
+                                        id="switcher-vertical" checked>
                                 </div>
                             </div>
                             <div class="col-4">
@@ -139,15 +145,13 @@
                                         Horizontal
                                     </label>
                                     <input class="form-check-input" type="radio" name="navigation-style"
-                                        id="switcher-horizontal" />
+                                        id="switcher-horizontal">
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="navigation-menu-styles">
-                        <p class="switcher-style-head">
-                            Vertical & Horizontal Menu Styles:
-                        </p>
+                        <p class="switcher-style-head">Vertical & Horizontal Menu Styles:</p>
                         <div class="row switcher-style gx-0 pb-2 gy-2">
                             <div class="col-4">
                                 <div class="form-check switch-select">
@@ -155,7 +159,7 @@
                                         Menu Click
                                     </label>
                                     <input class="form-check-input" type="radio" name="navigation-menu-styles"
-                                        id="switcher-menu-click" />
+                                        id="switcher-menu-click">
                                 </div>
                             </div>
                             <div class="col-4">
@@ -164,7 +168,7 @@
                                         Menu Hover
                                     </label>
                                     <input class="form-check-input" type="radio" name="navigation-menu-styles"
-                                        id="switcher-menu-hover" />
+                                        id="switcher-menu-hover">
                                 </div>
                             </div>
                             <div class="col-4">
@@ -173,7 +177,7 @@
                                         Icon Click
                                     </label>
                                     <input class="form-check-input" type="radio" name="navigation-menu-styles"
-                                        id="switcher-icon-click" />
+                                        id="switcher-icon-click">
                                 </div>
                             </div>
                             <div class="col-4">
@@ -182,7 +186,7 @@
                                         Icon Hover
                                     </label>
                                     <input class="form-check-input" type="radio" name="navigation-menu-styles"
-                                        id="switcher-icon-hover" />
+                                        id="switcher-icon-hover">
                                 </div>
                             </div>
                         </div>
@@ -196,7 +200,7 @@
                                         Default Menu
                                     </label>
                                     <input class="form-check-input" type="radio" name="sidemenu-layout-styles"
-                                        id="switcher-default-menu" checked />
+                                        id="switcher-default-menu" checked>
                                 </div>
                             </div>
                             <div class="col-sm-6">
@@ -205,7 +209,7 @@
                                         Closed Menu
                                     </label>
                                     <input class="form-check-input" type="radio" name="sidemenu-layout-styles"
-                                        id="switcher-closed-menu" />
+                                        id="switcher-closed-menu">
                                 </div>
                             </div>
                             <div class="col-sm-6">
@@ -214,7 +218,7 @@
                                         Icon Text
                                     </label>
                                     <input class="form-check-input" type="radio" name="sidemenu-layout-styles"
-                                        id="switcher-icontext-menu" />
+                                        id="switcher-icontext-menu">
                                 </div>
                             </div>
                             <div class="col-sm-6">
@@ -223,7 +227,7 @@
                                         Icon Overlay
                                     </label>
                                     <input class="form-check-input" type="radio" name="sidemenu-layout-styles"
-                                        id="switcher-icon-overlay" />
+                                        id="switcher-icon-overlay">
                                 </div>
                             </div>
                             <div class="col-sm-6">
@@ -232,7 +236,7 @@
                                         Detached
                                     </label>
                                     <input class="form-check-input" type="radio" name="sidemenu-layout-styles"
-                                        id="switcher-detached" />
+                                        id="switcher-detached">
                                 </div>
                             </div>
                             <div class="col-sm-6">
@@ -241,7 +245,7 @@
                                         Double Menu
                                     </label>
                                     <input class="form-check-input" type="radio" name="sidemenu-layout-styles"
-                                        id="switcher-double-menu" />
+                                        id="switcher-double-menu">
                                 </div>
                             </div>
                         </div>
@@ -255,7 +259,7 @@
                                         Regular
                                     </label>
                                     <input class="form-check-input" type="radio" name="page-styles"
-                                        id="switcher-regular" checked />
+                                        id="switcher-regular" checked>
                                 </div>
                             </div>
                             <div class="col-4">
@@ -264,7 +268,7 @@
                                         Classic
                                     </label>
                                     <input class="form-check-input" type="radio" name="page-styles"
-                                        id="switcher-classic" />
+                                        id="switcher-classic">
                                 </div>
                             </div>
                             <div class="col-4">
@@ -273,7 +277,7 @@
                                         Modern
                                     </label>
                                     <input class="form-check-input" type="radio" name="page-styles"
-                                        id="switcher-modern" />
+                                        id="switcher-modern">
                                 </div>
                             </div>
                         </div>
@@ -287,7 +291,7 @@
                                         Full Width
                                     </label>
                                     <input class="form-check-input" type="radio" name="layout-width"
-                                        id="switcher-full-width" checked />
+                                        id="switcher-full-width" checked>
                                 </div>
                             </div>
                             <div class="col-4">
@@ -296,7 +300,7 @@
                                         Boxed
                                     </label>
                                     <input class="form-check-input" type="radio" name="layout-width"
-                                        id="switcher-boxed" />
+                                        id="switcher-boxed">
                                 </div>
                             </div>
                         </div>
@@ -310,7 +314,7 @@
                                         Fixed
                                     </label>
                                     <input class="form-check-input" type="radio" name="menu-positions"
-                                        id="switcher-menu-fixed" checked />
+                                        id="switcher-menu-fixed" checked>
                                 </div>
                             </div>
                             <div class="col-4">
@@ -319,7 +323,7 @@
                                         Scrollable
                                     </label>
                                     <input class="form-check-input" type="radio" name="menu-positions"
-                                        id="switcher-menu-scroll" />
+                                        id="switcher-menu-scroll">
                                 </div>
                             </div>
                         </div>
@@ -333,7 +337,7 @@
                                         Fixed
                                     </label>
                                     <input class="form-check-input" type="radio" name="header-positions"
-                                        id="switcher-header-fixed" checked />
+                                        id="switcher-header-fixed" checked>
                                 </div>
                             </div>
                             <div class="col-4">
@@ -342,7 +346,7 @@
                                         Scrollable
                                     </label>
                                     <input class="form-check-input" type="radio" name="header-positions"
-                                        id="switcher-header-scroll" />
+                                        id="switcher-header-scroll">
                                 </div>
                             </div>
                         </div>
@@ -356,7 +360,7 @@
                                         Enable
                                     </label>
                                     <input class="form-check-input" type="radio" name="page-loader"
-                                        id="switcher-loader-enable" checked />
+                                        id="switcher-loader-enable" checked>
                                 </div>
                             </div>
                             <div class="col-4">
@@ -365,7 +369,7 @@
                                         Disable
                                     </label>
                                     <input class="form-check-input" type="radio" name="page-loader"
-                                        id="switcher-loader-disable" checked />
+                                        id="switcher-loader-disable" checked>
                                 </div>
                             </div>
                         </div>
@@ -380,33 +384,31 @@
                                 <div class="form-check switch-select me-3">
                                     <input class="form-check-input color-input color-white" data-bs-toggle="tooltip"
                                         data-bs-placement="top" title="Light Menu" type="radio" name="menu-colors"
-                                        id="switcher-menu-light" checked />
+                                        id="switcher-menu-light" checked>
                                 </div>
                                 <div class="form-check switch-select me-3">
                                     <input class="form-check-input color-input color-dark" data-bs-toggle="tooltip"
                                         data-bs-placement="top" title="Dark Menu" type="radio" name="menu-colors"
-                                        id="switcher-menu-dark" />
+                                        id="switcher-menu-dark">
                                 </div>
                                 <div class="form-check switch-select me-3">
                                     <input class="form-check-input color-input color-primary" data-bs-toggle="tooltip"
                                         data-bs-placement="top" title="Color Menu" type="radio" name="menu-colors"
-                                        id="switcher-menu-primary" />
+                                        id="switcher-menu-primary">
                                 </div>
                                 <div class="form-check switch-select me-3">
                                     <input class="form-check-input color-input color-gradient" data-bs-toggle="tooltip"
                                         data-bs-placement="top" title="Gradient Menu" type="radio" name="menu-colors"
-                                        id="switcher-menu-gradient" />
+                                        id="switcher-menu-gradient">
                                 </div>
                                 <div class="form-check switch-select me-3">
                                     <input class="form-check-input color-input color-transparent"
                                         data-bs-toggle="tooltip" data-bs-placement="top" title="Transparent Menu"
-                                        type="radio" name="menu-colors" id="switcher-menu-transparent" />
+                                        type="radio" name="menu-colors" id="switcher-menu-transparent">
                                 </div>
                             </div>
-                            <div class="px-4 pb-3 text-muted fs-11">
-                                Note:If you want to change color Menu dynamically change from
-                                below Theme Primary color picker
-                            </div>
+                            <div class="px-4 pb-3 text-muted fs-11">Note:If you want to change color Menu dynamically
+                                change from below Theme Primary color picker</div>
                         </div>
                         <div class="theme-colors">
                             <p class="switcher-style-head">Header Colors:</p>
@@ -414,56 +416,54 @@
                                 <div class="form-check switch-select me-3">
                                     <input class="form-check-input color-input color-white" data-bs-toggle="tooltip"
                                         data-bs-placement="top" title="Light Header" type="radio" name="header-colors"
-                                        id="switcher-header-light" checked />
+                                        id="switcher-header-light" checked>
                                 </div>
                                 <div class="form-check switch-select me-3">
                                     <input class="form-check-input color-input color-dark" data-bs-toggle="tooltip"
                                         data-bs-placement="top" title="Dark Header" type="radio" name="header-colors"
-                                        id="switcher-header-dark" />
+                                        id="switcher-header-dark">
                                 </div>
                                 <div class="form-check switch-select me-3">
                                     <input class="form-check-input color-input color-primary" data-bs-toggle="tooltip"
                                         data-bs-placement="top" title="Color Header" type="radio" name="header-colors"
-                                        id="switcher-header-primary" />
+                                        id="switcher-header-primary">
                                 </div>
                                 <div class="form-check switch-select me-3">
                                     <input class="form-check-input color-input color-gradient" data-bs-toggle="tooltip"
                                         data-bs-placement="top" title="Gradient Header" type="radio"
-                                        name="header-colors" id="switcher-header-gradient" />
+                                        name="header-colors" id="switcher-header-gradient">
                                 </div>
                                 <div class="form-check switch-select me-3">
                                     <input class="form-check-input color-input color-transparent"
                                         data-bs-toggle="tooltip" data-bs-placement="top" title="Transparent Header"
-                                        type="radio" name="header-colors" id="switcher-header-transparent" />
+                                        type="radio" name="header-colors" id="switcher-header-transparent">
                                 </div>
                             </div>
-                            <div class="px-4 pb-3 text-muted fs-11">
-                                Note:If you want to change color Header dynamically change
-                                from below Theme Primary color picker
-                            </div>
+                            <div class="px-4 pb-3 text-muted fs-11">Note:If you want to change color Header dynamically
+                                change from below Theme Primary color picker</div>
                         </div>
                         <div class="theme-colors">
                             <p class="switcher-style-head">Theme Primary:</p>
                             <div class="d-flex flex-wrap align-items-center switcher-style">
                                 <div class="form-check switch-select me-3">
                                     <input class="form-check-input color-input color-primary-1" type="radio"
-                                        name="theme-primary" id="switcher-primary" />
+                                        name="theme-primary" id="switcher-primary">
                                 </div>
                                 <div class="form-check switch-select me-3">
                                     <input class="form-check-input color-input color-primary-2" type="radio"
-                                        name="theme-primary" id="switcher-primary1" />
+                                        name="theme-primary" id="switcher-primary1">
                                 </div>
                                 <div class="form-check switch-select me-3">
                                     <input class="form-check-input color-input color-primary-3" type="radio"
-                                        name="theme-primary" id="switcher-primary2" />
+                                        name="theme-primary" id="switcher-primary2">
                                 </div>
                                 <div class="form-check switch-select me-3">
                                     <input class="form-check-input color-input color-primary-4" type="radio"
-                                        name="theme-primary" id="switcher-primary3" />
+                                        name="theme-primary" id="switcher-primary3">
                                 </div>
                                 <div class="form-check switch-select me-3">
                                     <input class="form-check-input color-input color-primary-5" type="radio"
-                                        name="theme-primary" id="switcher-primary4" />
+                                        name="theme-primary" id="switcher-primary4">
                                 </div>
                                 <div class="form-check switch-select ps-0 mt-1 color-primary-light">
                                     <div class="theme-container-primary"></div>
@@ -476,23 +476,23 @@
                             <div class="d-flex flex-wrap align-items-center switcher-style">
                                 <div class="form-check switch-select me-3">
                                     <input class="form-check-input color-input color-bg-1" type="radio"
-                                        name="theme-background" id="switcher-background" />
+                                        name="theme-background" id="switcher-background">
                                 </div>
                                 <div class="form-check switch-select me-3">
                                     <input class="form-check-input color-input color-bg-2" type="radio"
-                                        name="theme-background" id="switcher-background1" />
+                                        name="theme-background" id="switcher-background1">
                                 </div>
                                 <div class="form-check switch-select me-3">
                                     <input class="form-check-input color-input color-bg-3" type="radio"
-                                        name="theme-background" id="switcher-background2" />
+                                        name="theme-background" id="switcher-background2">
                                 </div>
                                 <div class="form-check switch-select me-3">
                                     <input class="form-check-input color-input color-bg-4" type="radio"
-                                        name="theme-background" id="switcher-background3" />
+                                        name="theme-background" id="switcher-background3">
                                 </div>
                                 <div class="form-check switch-select me-3">
                                     <input class="form-check-input color-input color-bg-5" type="radio"
-                                        name="theme-background" id="switcher-background4" />
+                                        name="theme-background" id="switcher-background4">
                                 </div>
                                 <div
                                     class="form-check switch-select ps-0 mt-1 tooltip-static-demo color-bg-transparent">
@@ -506,23 +506,23 @@
                             <div class="d-flex flex-wrap align-items-center switcher-style">
                                 <div class="form-check switch-select m-2">
                                     <input class="form-check-input bgimage-input bg-img1" type="radio"
-                                        name="theme-background" id="switcher-bg-img" />
+                                        name="theme-background" id="switcher-bg-img">
                                 </div>
                                 <div class="form-check switch-select m-2">
                                     <input class="form-check-input bgimage-input bg-img2" type="radio"
-                                        name="theme-background" id="switcher-bg-img1" />
+                                        name="theme-background" id="switcher-bg-img1">
                                 </div>
                                 <div class="form-check switch-select m-2">
                                     <input class="form-check-input bgimage-input bg-img3" type="radio"
-                                        name="theme-background" id="switcher-bg-img2" />
+                                        name="theme-background" id="switcher-bg-img2">
                                 </div>
                                 <div class="form-check switch-select m-2">
                                     <input class="form-check-input bgimage-input bg-img4" type="radio"
-                                        name="theme-background" id="switcher-bg-img3" />
+                                        name="theme-background" id="switcher-bg-img3">
                                 </div>
                                 <div class="form-check switch-select m-2">
                                     <input class="form-check-input bgimage-input bg-img5" type="radio"
-                                        name="theme-background" id="switcher-bg-img4" />
+                                        name="theme-background" id="switcher-bg-img4">
                                 </div>
                             </div>
                         </div>
@@ -536,24 +536,29 @@
     </div>
     <!-- End Switcher -->
 
+
     <!-- Loader -->
     <div id="loader">
-        <img src="../static/images/media/loader.svg" alt="" />
+        <img src="../static/images/media/loader.svg" alt="">
     </div>
     <!-- Loader -->
 
     <div class="page">
+
         <!-- app-header -->
         <header class="app-header">
+
             <!-- Start::main-header-container -->
             <div class="main-header-container container-fluid">
+
                 <!-- Start::header-content-left -->
                 <div class="header-content-left">
+
                     <!-- Start::header-element -->
                     <div class="header-element">
                         <div class="horizontal-logo">
                             <a href="index.html" class="header-logo">
-
+                                
                             </a>
                         </div>
                     </div>
@@ -565,39 +570,21 @@
                         <a aria-label="Hide Sidebar"
                             class="sidemenu-toggle header-link animated-arrow hor-toggle horizontal-navtoggle"
                             data-bs-toggle="sidebar" href="javascript:void(0);">
-                            <i class="header-icon bi bi-list"></i>
+                            <i class="header-icon fe fe-align-left"></i>
                         </a>
-
+                        <div class="main-header-center d-none d-lg-block" style="display: none;">
+                            <input class="form-control" placeholder="Search for anything..." type="search"
+                                style="display: none;"> <button class="btn"></button>
+                        </div>
                         <!-- End::header-link -->
                     </div>
                     <!-- End::header-element -->
+
                 </div>
                 <!-- End::header-content-left -->
 
                 <!-- Start::header-content-right -->
                 <div class="header-content-right">
-                    <div class="header-element Search-element d-block d-lg-none">
-                        <!-- Start::header-link|dropdown-toggle -->
-                        <a href="javascript:void(0);" class="header-link dropdown-toggle" data-bs-auto-close="outside"
-                            data-bs-toggle="dropdown">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" class="header-link-icon">
-                                <path
-                                    d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z" />
-                            </svg>
-                        </a>
-                        <!-- End::header-link|dropdown-toggle -->
-                        <ul class="main-header-dropdown dropdown-menu dropdown-menu-end Search-element-dropdown"
-                            data-popper-placement="none">
-                            <li>
-                                <div class="input-group w-100 p-2">
-                                    <input type="text" class="form-control" placeholder="Search...." />
-                                    <div class="btn btn-primary">
-                                        <i class="fa fa-search" aria-hidden="true"></i>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
 
                     <!-- Start::header-element -->
 
@@ -631,14 +618,270 @@
                     <!-- End::header-element -->
 
                     <!-- Start::header-element -->
+                    <div class="header-element messages-dropdown" style="display: none">
+                        <!-- Start::header-link|dropdown-toggle -->
+                        <a href="javascript:void(0);" class="header-link dropdown-toggle" data-bs-auto-close="outside"
+                            data-bs-toggle="dropdown">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="header-link-icon" height="24px"
+                                viewBox="0 0 24 24" width="24px" fill="currentColor">
+                                <path d="M0 0h24v24H0V0z" fill="none" />
+                                <path
+                                    d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6zm-2 0l-8 5-8-5h16zm0 12H4V8l8 5 8-5v10z" />
+                            </svg>
+                            <span class="pulse-danger"></span>
+                        </a>
+                        <!-- End::header-link|dropdown-toggle -->
+                        <!-- Start::main-header-dropdown -->
+                        <div class="main-header-dropdown dropdown-menu dropdown-menu-end main-header-message"
+                            data-popper-placement="none" style="display: none;">
+                            <div class="menu-header-content bg-primary text-fixed-white">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <h6 class="mb-0 fs-15 fw-semibold text-fixed-white">Messages</h6>
+                                    <span class="badge rounded-pill bg-warning pt-1 text-fixed-black">Mark All
+                                        Read</span>
+                                </div>
+                                <p class="dropdown-title-text subtext mb-0 text-fixed-white op-6 pb-0 fs-12 ">You have 4
+                                    unread messages</p>
+                            </div>
+                            <div>
+                                <hr class="dropdown-divider">
+                            </div>
+                            <ul class="list-unstyled mb-0" id="header-cart-items-scroll">
+                                <li class="dropdown-item">
+                                    <div class="d-flex messages">
+                                        <span class="avatar avatar-md me-2 online avatar-rounded flex-shrink-0">
+                                            <img src="../static/images/faces/12.jpg" alt="img">
+                                        </span>
+                                        <div>
+                                            <div class="d-flex">
+                                                <a href="chat.html">
+                                                    <h6 class="mb-1 name">{{ user }}</h6>
+                                                </a>
+                                            </div>
+                                            <p class="mb-0 fs-12 desc">I'm sorry but i'm not sure how to help you with
+                                                that......</p>
+                                            <p class="time mb-0 text-start float-start ms-2 mt-2">Mar 15 3:55 PM</p>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="dropdown-item">
+                                    <div class="d-flex messages">
+                                        <span class="avatar avatar-md me-2 online avatar-rounded flex-shrink-0">
+                                            <img src="../static/images/faces/3.jpg" alt="img">
+                                        </span>
+                                        <div>
+                                            <div class="d-flex">
+                                                <a href="chat.html">
+                                                    <h6 class="mb-1 name">Jimmy Changa</h6>
+                                                </a>
+                                            </div>
+                                            <p class="mb-0 fs-12 desc">All set ! Now, time to get to you now......</p>
+                                            <p class="time mb-0 text-start float-start ms-2 mt-2">Mar 06 01:12 AM</p>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="dropdown-item">
+                                    <div class="d-flex messages">
+                                        <span class="avatar avatar-md me-2 online avatar-rounded flex-shrink-0">
+                                            <img src="../static/images/faces/4.jpg" alt="img">
+                                        </span>
+                                        <div>
+                                            <div class="d-flex">
+                                                <a href="chat.html">
+                                                    <h6 class="mb-1 name">Graham Cracker</h6>
+                                                </a>
+                                            </div>
+                                            <p class="mb-0 fs-12 desc">Are you ready to pickup your Delivery...</p>
+                                            <p class="time mb-0 text-start float-start ms-2 mt-2">Feb 25 10:35 AM</p>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="dropdown-item">
+                                    <div class="d-flex messages">
+                                        <span class="avatar avatar-md me-2 online avatar-rounded flex-shrink-0">
+                                            <img src="../static/images/faces/5.jpg" alt="img">
+                                        </span>
+                                        <div>
+                                            <div class="d-flex">
+                                                <a href="chat.html">
+                                                    <h6 class="mb-1 name">Donatella Nobatti</h6>
+                                                </a>
+                                            </div>
+                                            <p class="mb-0 fs-12 desc">Here are some products ...</p>
+                                            <p class="time mb-0 text-start float-start ms-2 mt-2">Feb 12 05:12 PM</p>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="dropdown-item">
+                                    <div class="d-flex messages">
+                                        <span class="avatar avatar-md me-2 online avatar-rounded flex-shrink-0">
+                                            <img src="../static/images/brand-logos/favicon.ico" alt="img">
+                                        </span>
+                                        <div>
+                                            <div class="d-flex">
+                                                <a href="chat.html">
+                                                    <h6 class="mb-1 name">Anne Fibbiyon</h6>
+                                                </a>
+                                            </div>
+                                            <p class="mb-0 fs-12 desc">I'm sorry but i'm not sure how...</p>
+                                            <p class="time mb-0 text-start float-start ms-2 mt-2">Jan 29 03:16 PM</p>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div class="text-center dropdown-footer">
+                                <a href="checkout.html" class="text-primary fs-13">VIEW ALL</a>
+                            </div>
+                        </div>
+                        <!-- End::main-header-dropdown -->
+                    </div>
+                    <!-- End::header-element -->
 
+                    <!-- Start::header-element -->
+                    <div class="header-element notifications-dropdown main-header-notification" style="display: none;">
+                        <!-- Start::header-link|dropdown-toggle -->
+                        <a href="javascript:void(0);" class="header-link dropdown-toggle" data-bs-toggle="dropdown"
+                            data-bs-auto-close="outside" id="messageDropdown" aria-expanded="false">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="header-link-icon" height="24px"
+                                viewBox="0 0 24 24" width="24px" fill="currentColor">
+                                <path d="M0 0h24v24H0V0z" fill="none" />
+                                <path
+                                    d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2zm-2 1H8v-6c0-2.48 1.51-4.5 4-4.5s4 2.02 4 4.5v6z" />
+                            </svg>
+                            <span class="pulse-success"></span>
+                        </a>
+                        <!-- End::header-link|dropdown-toggle -->
+                        <!-- Start::main-header-dropdown -->
+                        <div class="main-header-dropdown dropdown-menu dropdown-menu-end main-header-message"
+                            data-popper-placement="none">
+                            <div class="menu-header-content bg-primary text-fixed-white">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <h6 class="mb-0 fs-15 fw-semibold text-fixed-white">Notifications</h6>
+                                    <span class="badge rounded-pill bg-warning pt-1 text-fixed-black">Mark All
+                                        Read</span>
+                                </div>
+                                <p class="dropdown-title-text subtext mb-0 text-fixed-white op-6 pb-0 fs-12 ">You have 4
+                                    unread Notifications</p>
+                            </div>
+                            <div>
+                                <hr class="dropdown-divider">
+                            </div>
+                            <ul class="list-unstyled mb-0" id="header-notification-scroll">
+                                <li class="dropdown-item px-3">
+                                    <div class="d-flex">
+                                        <span class="avatar avatar-md me-2 avatar-rounded flex-shrink-0 bg-pink">
+                                            <i class="la la-file-alt fs-20"></i>
+                                        </span>
+                                        <div class="ms-3">
+                                            <a href="mail.html">
+                                                <h5 class="notification-label text-dark mb-1">New files available</h5>
+                                            </a>
+                                            <div class="notification-subtext">10 hour ago</div>
+                                        </div>
+                                        <div class="ms-auto">
+                                            <a href="mail.html"><i
+                                                    class="las la-angle-right text-end text-muted icon"></i></a>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="dropdown-item px-3">
+                                    <div class="d-flex">
+                                        <span class="avatar avatar-md me-2 avatar-rounded flex-shrink-0 bg-purple">
+                                            <i class="la la-gem fs-20"></i>
+                                        </span>
+                                        <div class="ms-3">
+                                            <a href="mail.html">
+                                                <h5 class="notification-label text-dark mb-1">Updates Available</h5>
+                                            </a>
+                                            <div class="notification-subtext">2 days ago</div>
+                                        </div>
+                                        <div class="ms-auto">
+                                            <a href="mail.html"><i
+                                                    class="las la-angle-right text-end text-muted icon"></i></a>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="dropdown-item px-3">
+                                    <div class="d-flex">
+                                        <span class="avatar avatar-md me-2 avatar-rounded flex-shrink-0 bg-success">
+                                            <i class="la la-shopping-basket fs-20"></i>
+                                        </span>
+                                        <div class="ms-3">
+                                            <a href="mail.html">
+                                                <h5 class="notification-label text-dark mb-1">New Order Received</h5>
+                                            </a>
+                                            <div class="notification-subtext">1 hour ago</div>
+                                        </div>
+                                        <div class="ms-auto">
+                                            <a href="mail.html"><i
+                                                    class="las la-angle-right text-end text-muted icon"></i></a>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="dropdown-item px-3">
+                                    <div class="d-flex">
+                                        <span class="avatar avatar-md me-2 avatar-rounded flex-shrink-0 bg-warning">
+                                            <i class="la la-envelope-open fs-20 text-fixed-white"></i>
+                                        </span>
+                                        <div class="ms-3">
+                                            <a href="mail.html">
+                                                <h5 class="notification-label text-dark mb-1">New review received</h5>
+                                            </a>
+                                            <div class="notification-subtext">1 day ago</div>
+                                        </div>
+                                        <div class="ms-auto">
+                                            <a href="mail.html"><i
+                                                    class="las la-angle-right text-end text-muted icon"></i></a>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="dropdown-item px-3">
+                                    <div class="d-flex">
+                                        <span class="avatar avatar-md me-2 avatar-rounded flex-shrink-0 bg-danger">
+                                            <i class="la la-user-check fs-20"></i>
+                                        </span>
+                                        <div class="ms-3">
+                                            <a href="mail.html">
+                                                <h5 class="notification-label text-dark mb-1">22 verified registrations
+                                                </h5>
+                                            </a>
+                                            <div class="notification-subtext">2 hour ago</div>
+                                        </div>
+                                        <div class="ms-auto">
+                                            <a href="mail.html"><i
+                                                    class="las la-angle-right text-end text-muted icon"></i></a>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="dropdown-item px-3">
+                                    <div class="d-flex">
+                                        <span class="avatar avatar-md me-2 avatar-rounded flex-shrink-0 bg-primary">
+                                            <i class="la la-check-circle fs-20"></i>
+                                        </span>
+                                        <div class="ms-3">
+                                            <a href="mail.html">
+                                                <h5 class="notification-label text-dark mb-1">Project has been approved
+                                                </h5>
+                                            </a>
+                                            <div class="notification-subtext">4 hour ago</div>
+                                        </div>
+                                        <div class="ms-auto">
+                                            <a href="mail.html"><i
+                                                    class="las la-angle-right text-end text-muted icon"></i></a>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div class="text-center dropdown-footer">
+                                <a href="checkout.html" class="text-primary fs-13">VIEW ALL</a>
+                            </div>
+                        </div>
+                        <!-- End::main-header-dropdown -->
+                    </div>
                     <!-- End::header-element -->
 
                     <!-- Start::header-element -->
 
-                    <!-- End::header-element -->
-
-                    <!-- Start::header-element -->
                     <!-- End::header-element -->
 
                     <!-- Start::header-element -->
@@ -650,7 +893,8 @@
                         <!-- Start::header-link|dropdown-toggle -->
                         <a href="javascript:void(0);" class="header-link dropdown-toggle" id="mainHeaderProfile"
                             data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
-                            <img src="../static/user.png" alt="img" width="37" height="37" class="rounded-circle" />
+                            <img src="../static/user.png" alt="img" width="37" height="37"
+                                class="rounded-circle">
                         </a>
                         <!-- End::header-link|dropdown-toggle -->
                         <ul class="main-header-dropdown dropdown-menu pt-0 header-profile-dropdown dropdown-menu-end main-profile-menu"
@@ -658,32 +902,34 @@
                             <li>
                                 <div class="main-header-profile bg-primary menu-header-content text-fixed-white">
                                     <div class="my-auto">
-
-                                        <h6 class="mb-0 lh-1 text-fixed-white">{{ user }}</h6>
+                                        <h6 class="mb-0 lh-1 text-fixed-white">{{ user }}</h6><span
+                                            class="fs-11 op-7 lh-1">System User</span>
                                     </div>
                                 </div>
                             </li>
 
-                            <li>
-                                <a class="dropdown-item d-flex" href="/logout"><i
-                                        class="bx bx-log-out fs-18 me-2 op-7"></i>Sign Out</a>
-                            </li>
+                            <li><a class="dropdown-item d-flex" href="/logout"><i
+                                        class="bx bx-log-out fs-18 me-2 op-7"></i>Sign Out</a></li>
                         </ul>
                     </div>
                     <!-- End::header-element -->
 
                     <!-- Start::header-element -->
-
+                  
                     <!-- End::header-element -->
+
                 </div>
                 <!-- End::header-content-right -->
+
             </div>
             <!-- End::main-header-container -->
+
         </header>
         <!-- /app-header -->
 
         <!-- Start::Off-canvas sidebar-->
-
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="header-sidebar" aria-labelledby="sidebarLabel">
+        </div>
         <!-- End::Off-canvas sidebar-->
 
         <!-- Message Modal -->
@@ -698,18 +944,23 @@
 
         <!--End modal -->
         <!-- Start::app-sidebar -->
+
+
         <aside class="app-sidebar sticky" id="sidebar">
+
             <!-- Start::main-sidebar-header -->
             <div class="main-sidebar-header">
                 <a href="#" class="">
-                    <img src="../static/logoo.png" alt="logo" class="desktop-logo" width="140" />
+                    <img src="../static/logoo.png" alt="logo" class="desktop-logo" style="padding: 20px; border-radius: 5px ;">
 
                 </a>
             </div>
             <!-- End::main-sidebar-header -->
 
+
+            <!-- meron error kaya tinago-->
             <!-- Start::main-sidebar -->
-            <div class="main-sidebar" id="sidebar-scroll">
+            <div class="main-sidebar" id="sidebar-scroll" style="display: none" >
                 <!-- Start::nav -->
                 <nav class="main-menu-container nav nav-pills flex-column sub-open">
                     <div class="slide-left" id="slide-left">
@@ -788,61 +1039,195 @@
                             </a>
                         </li>
 
-
                         <!-- Start::slide__category -->
             </div>
+
+
+
+
+
+
+
+            <!-- meron error -->
+            <div class="main-sidebar" id="sidebar-scroll">
+
+                <!-- Start::nav -->
+                <nav class="main-menu-container nav nav-pills flex-column sub-open">
+                    <div class="slide-left" id="slide-left">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="#7b8191" width="24" height="24"
+                            viewBox="0 0 24 24">
+                            <path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"></path>
+                        </svg>
+                    </div>
+                    <ul class="main-menu">
+                        <!-- Start::slide__category -->
+                        <li class="slide__category"><span class="category-name">Main</span></li>
+                        <!-- End::slide__category -->
+
+                        <!-- Start::slide -->
+                        <li class="slide {% if request.path == '/home_page' %} active {% endif %}">
+                            <a href="/home_page"
+                                class="side-menu__item {% if request.path == '/home_page' %}active{% endif %}">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                                    class="side-menu__icon bi bi-patch-plus" viewBox="0 0 16 16">
+                                    <path
+                                        d="M5.793 1a1 1 0 0 1 1.414 0l.647.646a.5.5 0 1 1-.708.708L6.5 1.707 2 6.207V12.5a.5.5 0 0 0 .5.5.5.5 0 0 1 0 1A1.5 1.5 0 0 1 1 12.5V7.207l-.146.147a.5.5 0 0 1-.708-.708zm3 1a1 1 0 0 1 1.414 0L12 3.793V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v3.293l1.854 1.853a.5.5 0 0 1-.708.708L15 8.207V13.5a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 4 13.5V8.207l-.146.147a.5.5 0 1 1-.708-.708zm.707.707L5 7.207V13.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5V7.207z" />
+                                </svg>
+                                <span class="side-menu__label">Home</span>
+
+                            </a>
+                        </li>
+                        <!-- End::slide -->
+
+                        <!-- Start::slide__category -->
+                        <li class="slide__category">
+                            <span class="category-name">Analytics</span>
+                        </li>
+                        <!-- End::slide__category -->
+                        <li class="slide {% if request.path == '/market' or request.path.startswith('/forecast/') or request.path.startswith('/price_info_chart/') %}active{% endif %}
+">
+                            <a href="/market"
+                                class="side-menu__item {% if request.path == '/market' or request.path.startswith('/forecast/') or request.path.startswith('/price_info_chart/') %}active{% endif %}">
+                                <svg xmlns=" http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                                    class="side-menu__icon bi bi-patch-plus" viewBox="0 0 16 16">
+                                    <path
+                                        d="M3 2v4.586l7 7L14.586 9l-7-7zM2 2a1 1 0 0 1 1-1h4.586a1 1 0 0 1 .707.293l7 7a1 1 0 0 1 0 1.414l-4.586 4.586a1 1 0 0 1-1.414 0l-7-7A1 1 0 0 1 2 6.586z" />
+                                    <path
+                                        d="M5.5 5a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1m0 1a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3M1 7.086a1 1 0 0 0 .293.707L8.75 15.25l-.043.043a1 1 0 0 1-1.414 0l-7-7A1 1 0 0 1 0 7.586V3a1 1 0 0 1 1-1z" />
+                                </svg>
+                                <span class="side-menu__label">Price List and Forecast</span>
+
+                            </a>
+                        </li>
+
+                        <li class="slide {% if request.path == '/market_info' %}active{% endif %}">
+                            <a href="/market_info"
+                                class="side-menu__item {% if request.path == '/market_info' %}active{% endif %}">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                                    class="side-menu__icon bi bi-patch-plus" viewBox="0 0 16 16">
+                                    <path
+                                        d="M2.97 1.35A1 1 0 0 1 3.73 1h8.54a1 1 0 0 1 .76.35l2.609 3.044A1.5 1.5 0 0 1 16 5.37v.255a2.375 2.375 0 0 1-4.25 1.458A2.37 2.37 0 0 1 9.875 8 2.37 2.37 0 0 1 8 7.083 2.37 2.37 0 0 1 6.125 8a2.37 2.37 0 0 1-1.875-.917A2.375 2.375 0 0 1 0 5.625V5.37a1.5 1.5 0 0 1 .361-.976zm1.78 4.275a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 1 0 2.75 0V5.37a.5.5 0 0 0-.12-.325L12.27 2H3.73L1.12 5.045A.5.5 0 0 0 1 5.37v.255a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0M1.5 8.5A.5.5 0 0 1 2 9v6h1v-5a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v5h6V9a.5.5 0 0 1 1 0v6h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1V9a.5.5 0 0 1 .5-.5M4 15h3v-5H4zm5-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1zm3 0h-2v3h2z" />
+                                </svg>
+                                </svg>
+                                <span class="side-menu__label">Market Info</span>
+
+                            </a>
+                        </li>
+
+                        <!-- Start::slide -->
+                        <li class="slide {% if request.path == '/year_forecast' %} active{% endif %}">
+                            <a href="/year_forecast"
+                                class="side-menu__item {% if request.path == '/year_forecast' %}active{% endif %}">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                                    class="side-menu__icon bi bi-patch-plus" viewBox="0 0 16 16">
+                                    <path
+                                        d="M4 11H2v3h2zm5-4H7v7h2zm5-5v12h-2V2zm-2-1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM6 7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1zm-5 4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1z" />
+                                </svg>
+                                <span class="side-menu__label">Yearly Forecast</span>
+
+                            </a>
+                        </li>
+                        <!-- End::slide -->
+                    </ul>
+                    <div class="slide-right" id="slide-right"><svg xmlns="http://www.w3.org/2000/svg" fill="#7b8191"
+                            width="24" height="24" viewBox="0 0 24 24">
+                            <path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path>
+                        </svg></div>
+                </nav>
+                <!-- End::nav -->
+
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
             <!-- End::main-sidebar -->
+
         </aside>
         <!-- End::app-sidebar -->
 
-        <!-- Start::app-content -->
+
+
+
+        <!--APP-CONTENT START-->
         {% block content %}
 
         {% endblock %}
 
 
+        <!--APP-CONTENT CLOSE-->
 
 
 
-        <!-- End::app-content -->
 
         <!-- Footer Start -->
+        <footer class="footer mt-auto text-center">
+            <div class="container" style="display: none">
+                <span class="text-muted"> Copyright © <span id="year"></span> <a href="javascript:void(0);"
+                        class="text-dark fw-semibold">Valex</a>.
+                    Designed with <span class="bi bi-heart-fill text-danger"></span> by <a href="javascript:void(0);">
+                        <span class="fw-semibold text-primary text-decoration-underline">Spruko</span>
+                    </a> All
+                    rights
+                    reserved
+                </span>
+            </div>
+        </footer>
         <!-- Footer End -->
 
-        <!-- Scroll To Top -->
-        <div class="scrollToTop">
-            <span class="arrow"><i class="las la-angle-double-up"></i></span>
-        </div>
-        <div id="responsive-overlay"></div>
-        <!-- Scroll To Top -->
+    </div>
 
-        <!-- Popper JS -->
-        <script src="../static/libs/@popperjs/core/umd/popper.min.js"></script>
 
-        <!-- Bootstrap JS -->
-        <script src="../static/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Scroll To Top -->
+    <div class="scrollToTop">
+        <span class="arrow"><i class="las la-angle-double-up"></i></span>
+    </div>
+    <div id="responsive-overlay"></div>
+    <!-- Scroll To Top -->
 
-        <!-- Defaultmenu JS -->
-        <script src="../static/js/defaultmenu.min.js"></script>
+    <!-- Popper JS -->
+    <script src="../static/libs/@popperjs/core/umd/popper.min.js"></script>
 
-        <!-- Node Waves JS-->
-        <script src="../static/libs/node-waves/waves.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="../static/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-        <!-- Sticky JS -->
-        <script src="../static/js/sticky.js"></script>
+    <!-- Defaultmenu JS -->
+    <script src="../static/js/defaultmenu.min.js"></script>
 
-        <!-- Simplebar JS -->
-        <!-- <script src="../static/libs/simplebar/simplebar.min.js"></script>
-        <script src="../static/js/simplebar.js"></script> -->
+    <!-- Node Waves JS-->
+    <script src="../static/libs/node-waves/waves.min.js"></script>
 
-        <!-- Color Picker JS -->
-        <script src="../static/libs/@simonwep/pickr/pickr.es5.min.js"></script>
+    <!-- Sticky JS -->
+    <script src="../static/js/sticky.js"></script>
 
-        <!-- Custom-Switcher JS -->
-        <!-- <script src="../static/js/custom-switcher.min.js"></script> -->
+    <!-- Simplebar JS -->
+    <script src="../static/libs/simplebar/simplebar.min.js"></script>
+    <script src="../static/js/simplebar.js"></script>
 
-        <!-- Custom JS -->
-        <!-- <script src="../static/js/custom.js"></script> -->
+    <!-- Color Picker JS -->
+    <script src="../static/libs/@simonwep/pickr/pickr.es5.min.js"></script>
+
+
+
+    <!-- Custom-Switcher JS -->
+    <script src="../static/js/custom-switcher.min.js"></script>
+
+    <!-- Prism JS -->
+    <script src="../static/libs/prismjs/prism.js"></script>
+    <script src="../static/js/prism-custom.js"></script>
+
+    <!-- Custom JS -->
+    <script src="../static/js/custom.js"></script>
+
 </body>
 
 </html>

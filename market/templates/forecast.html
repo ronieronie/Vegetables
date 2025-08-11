@@ -370,7 +370,7 @@ block content %}
                                     <form id="forecastForm">
                                         <!-- Commodity Selection -->
                                         <div class="form-group">
-                                            <label for="commodity"> <i class="bi bi-basket-fill"></i> Commodity</label>
+                                            <label for="commodity"> <i class="bi bi-basket-fill"></i> Commodity </label>
                                             <input type="text" class="form-control" value="{{ commodity}}"
                                                 id="commodity" />
                                         </div>
@@ -378,12 +378,22 @@ block content %}
                                         <!-- Year and Month -->
                                         <div class="form-row">
                                             <div class="form-group">
-                                                <label for="year"><i class="bi bi-calendar"></i> Year</label>
-                                                <input type="text" class="form-control" id="year" />
+                                                <label for="year"><i class="bi bi-calendar"></i> Year <span
+                                                        style="color: red;">*</span></label>
+                                                <select name="year" id="selected_year" class="form-select">
+                                                    <option value="">Select Year</option>
+                                                    <option value="2023">2023</option>
+                                                    <option value="2024">2024</option>
+                                                    <option value="2025">2025</option>
+                                                    <option value="2026">2026</option>
+                                                    <option value="2027">2027</option>
+
+                                                </select>
                                             </div>
 
                                             <div class="form-group">
-                                                <label for="month"><i class="bi bi-calendar"></i> Month</label>
+                                                <label for="month"><i class="bi bi-calendar"></i> Month <span
+                                                        style="color: red;">*</span></label>
                                                 <select id="month" class="form-select" required>
                                                     <option value="">Select month...</option>
                                                     <option value="January">January</option>
@@ -405,7 +415,8 @@ block content %}
                                         <!-- Market Location -->
                                         <div class="form-group">
                                             <label for="market">
-                                                <i class="bi bi-geo-alt-fill"></i> Market Location
+                                                <i class="bi bi-geo-alt-fill"></i> Market Location <span
+                                                    style="color: red;">*</span>
                                             </label>
                                             <select id="market" required class="form-select" id="market">
                                                 <option value="">Choose a market...</option>
@@ -510,7 +521,7 @@ block content %}
     })
     $(document).on("click", "#forecast_btn", function () {
         var commodity = $("#commodity").val();
-        var year = $("#year").val();
+        var year = $("#selected_year").val();
         var month = $("#month").val();
         var market_location = $('#market').val();
         var price = "{{ price }}"

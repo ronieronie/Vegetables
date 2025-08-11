@@ -539,7 +539,8 @@
                                 <div class="card-sigin">
                                     <div class="mb-2 d-flex">
                                         <a href="index.html" class="">
-                                            <img src="../static/logoo.png" class="desktop-logo ht-45" alt="logo" />
+                                            <img src="../static/logoo.png" class="desktop-logo ht-45" alt="logo"
+                                                style="border-radius: 10px;" />
                                             <img src="../static/logoo.png" class="desktop-white ht-45" alt="logo" />
                                         </a>
                                     </div>
@@ -557,6 +558,11 @@
                                             <h6 class="fw-medium mb-4 fs-17">
                                                 Please sign in to continue.
                                             </h6>
+                                            {% for message in get_flashed_messages() %}
+                                            <div class="alert alert-danger" role="alert">
+                                                {{ message }}
+                                            </div>
+                                            {% endfor %}
                                             <form method="POST" action="/login">
                                                 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
                                                 <input type="hidden" name="csrf_token" value="" />

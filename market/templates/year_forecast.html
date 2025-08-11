@@ -59,7 +59,6 @@
     }
 </style>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-<link href="../static/" rel="stylesheet">
 <div class="main-content app-content" style="min-height: 100vh">
     <div class="container-fluid">
         <!-- Page Header -->
@@ -746,6 +745,12 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
+    function scrollToElement(elementId) {
+        $('html, body').animate({
+            scrollTop: $('#' + elementId).offset().top
+        }, 1000);
+    }
+
     $(document).on('click', '#forecast_btn', function () {
         var year = $('#year').val();
         var veg = $('#commodity').val()
@@ -764,8 +769,7 @@
                 didOpen: () => {
                     Swal.showLoading();
                     setTimeout(() => {
-
-
+                        scrollToElement('market_overview');
                         $.ajax({
                             url: "/ypredict",
                             type: "POST",
@@ -780,41 +784,44 @@
                                 $('#market_overview').css('display', 'flex');
                                 $('#market_data').css('display', 'flex');
                                 $('#best_market').html(response.best_market);
-                                $('#best_ave').html(response.best_ave.toFixed(2));
-                                $('#min_price').html(response.min_pred_price.toFixed(2));
-                                $('#max_price').html(response.max_pred_price.toFixed(2));
-                                $('#prices_ave').html(response.prices_ave.toFixed(2));
-                                $('#mtr_ave').html('₱' + response.mtr_ave.toFixed(2))
-                                $('#mtr_max_val').html('₱' + response.mtr_max.toFixed(2));
-                                $('#mtr_min_val').html('₱' + response.mtr_min.toFixed(2));
-                                $('#pam_ave').html('₱' + response.pam_ave.toFixed(2))
-                                $('#pam_max_val').html('₱' + response.pam_max.toFixed(2));
-                                $('#pam_min_val').html('₱' + response.pam_min.toFixed(2));
-                                $('#riz_ave').html('₱' + response.riz_ave.toFixed(2))
-                                $('#riz_max_val').html('₱' + response.riz_max.toFixed(2));
-                                $('#riz_min_val').html('₱' + response.riz_min.toFixed(2));
-                                // CAV version
-                                $('#cav_ave').html('₱' + response.cav_ave.toFixed(2));
-                                $('#cav_max_val').html('₱' + response.cav_max.toFixed(2));
-                                $('#cav_min_val').html('₱' + response.cav_min.toFixed(2));
+                                $('#best_ave').html(response.best_ave.toFixed(2) + '/kg');
+                                $('#min_price').html(response.min_pred_price.toFixed(2) + '/kg');
+                                $('#max_price').html(response.max_pred_price.toFixed(2) + '/kg');
+                                $('#prices_ave').html(response.prices_ave.toFixed(2) + '/kg');
 
-                                // LAG version
-                                $('#lag_ave').html('₱' + response.lag_ave.toFixed(2));
-                                $('#lag_max_val').html('₱' + response.lag_max.toFixed(2));
-                                $('#lag_min_val').html('₱' + response.lag_min.toFixed(2));
+                                $('#mtr_ave').html(response.mtr_ave.toFixed(2) + '/kg');
+                                $('#mtr_max_val').html(response.mtr_max.toFixed(2) + '/kg');
+                                $('#mtr_min_val').html(response.mtr_min.toFixed(2) + '/kg');
 
-                                // BUL version
-                                $('#bul_ave').html('₱' + response.bul_ave.toFixed(2));
-                                $('#bul_max_val').html('₱' + response.bul_max.toFixed(2));
-                                $('#bul_min_val').html('₱' + response.bul_min.toFixed(2));
+                                $('#pam_ave').html(response.pam_ave.toFixed(2) + '/kg');
+                                $('#pam_max_val').html(response.pam_max.toFixed(2) + '/kg');
+                                $('#pam_min_val').html(response.pam_min.toFixed(2) + '/kg');
+
+                                $('#riz_ave').html(response.riz_ave.toFixed(2) + '/kg');
+                                $('#riz_max_val').html(response.riz_max.toFixed(2) + '/kg');
+                                $('#riz_min_val').html(response.riz_min.toFixed(2) + '/kg');
+
+                                $('#cav_ave').html(response.cav_ave.toFixed(2) + '/kg');
+                                $('#cav_max_val').html(response.cav_max.toFixed(2) + '/kg');
+                                $('#cav_min_val').html(response.cav_min.toFixed(2) + '/kg');
+
+                                $('#lag_ave').html(response.lag_ave.toFixed(2) + '/kg');
+                                $('#lag_max_val').html(response.lag_max.toFixed(2) + '/kg');
+                                $('#lag_min_val').html(response.lag_min.toFixed(2) + '/kg');
+
+                                $('#bul_ave').html(response.bul_ave.toFixed(2) + '/kg');
+                                $('#bul_max_val').html(response.bul_max.toFixed(2) + '/kg');
+                                $('#bul_min_val').html(response.bul_min.toFixed(2) + '/kg');
+
                                 for (let i = 0; i < 12; i++) {
-                                    $('#mtr_' + i).html('₱' + response.mtr_data[i].toFixed(2));
-                                    $('#pam_' + i).html('₱' + response.pam_data[i].toFixed(2));
-                                    $('#riz_' + i).html('₱' + response.riz_data[i].toFixed(2));
-                                    $('#cav_' + i).html('₱' + response.cav_data[i].toFixed(2));
-                                    $('#lag_' + i).html('₱' + response.lag_data[i].toFixed(2));
-                                    $('#bul_' + i).html('₱' + response.bul_data[i].toFixed(2));
+                                    $('#mtr_' + i).html(response.mtr_data[i].toFixed(2) + '/kg');
+                                    $('#pam_' + i).html(response.pam_data[i].toFixed(2) + '/kg');
+                                    $('#riz_' + i).html(response.riz_data[i].toFixed(2) + '/kg');
+                                    $('#cav_' + i).html(response.cav_data[i].toFixed(2) + '/kg');
+                                    $('#lag_' + i).html(response.lag_data[i].toFixed(2) + '/kg');
+                                    $('#bul_' + i).html(response.bul_data[i].toFixed(2) + '/kg');
                                 }
+
                             }
                         });
                         Swal.close();

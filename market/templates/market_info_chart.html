@@ -38,7 +38,6 @@
     .form-group label {
         display: block;
         font-weight: 600;
-        color: #374151;
         margin-bottom: 8px;
     }
 
@@ -49,7 +48,6 @@
     }
 
     .chart-container {
-        background: white;
         border-radius: 8px;
         box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
         padding: 40px;
@@ -80,9 +78,6 @@
     }
 
 
-    .chart-header p {
-        color: #64748b;
-    }
 
     .chart-wrapper {
         margin: 0 auto 20px auto;
@@ -99,7 +94,7 @@
     }
 
     .chart-description {
-        background: linear-gradient(135deg, #eff6ff 0%, #f3e8ff 100%);
+
         border-radius: 5px;
         padding: 30px;
         border: 1px solid #e0e7ff;
@@ -107,7 +102,6 @@
 
     .chart-description h3 {
         font-size: 1.4rem;
-        color: #1e293b;
         margin-bottom: 15px;
     }
 
@@ -118,14 +112,11 @@
     }
 
     .description-grid p {
-        color: #475569;
         line-height: 1.6;
         margin-bottom: 10px;
     }
 
-    .description-grid strong {
-        color: #1e293b;
-    }
+
 
     /* Mobile adjustments */
     @media (max-width: 600px) {
@@ -322,13 +313,19 @@
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="../static/libs/chart.js/chart.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <!-- Imternal Chartjs JS -->
-<script src="../static/js/chartjs-charts.js"></script>
+
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     var get_data = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    function scrollToElement(elementId) {
+        $('html, body').animate({
+            scrollTop: $('#' + elementId).offset().top
+        }, 1000);
+    }
+
     $(document).on('click', '#generate_chart', function () {
         var location = $('#location').val();
         var commodities = $('#commodity').val();
@@ -360,6 +357,7 @@
                                 commodities: commodities
                             },
                             success: function (response) {
+                                scrollToElement('chartContainer');
                                 if (response.data.every(value => value === 0)) {
                                     $('.chart-container').css('display', 'block');
                                     $('.chartjs-chart').css('display', 'none');
