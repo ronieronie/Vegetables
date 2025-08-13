@@ -148,8 +148,14 @@
                                 <h3>Forecast Year</h3>
                                 <div class="form-group">
                                     <label for="location"><i class="bi bi-calendar"></i> Forecast Year</label>
-                                    <input type="text" class="form-control" id="year"
-                                        placeholder="Enter forecast year (e.g., 2025)">
+                                    <select name="year" id="selected_year" class="form-select">
+                                        <option value="">Select Year</option>
+                                        <option value="2023">2023</option>
+                                        <option value="2024">2024</option>
+                                        <option value="2025">2025</option>
+                                        <option value="2026">2026</option>
+                                        <option value="2027">2027</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -202,7 +208,7 @@
                                 <div class="feature mt-0 mb-0">
                                     <div
                                         class="icon-circle bg-primary bg-opacity-25 text-primary d-flex align-items-center justify-content-center">
-                                        <i class="bi bi-graph-up-arrow"></i>
+                                        <i class="bi bi-graph-up-arrow mt-2"></i>
                                     </div>
                                 </div>
                             </div>
@@ -222,7 +228,7 @@
                         <div class="row">
                             <div class="col">
                                 <strong>BEST MARKET</strong>
-                                <div class="h3 mt-2 mb-2 text-success"><b><span id="best_market"></span></b>
+                                <div class="h3 mt-2 mb-2"><b><span id="best_market"></span></b>
                                 </div>
                             </div>
                             <div class="col-auto align-self-center">
@@ -752,7 +758,7 @@
     }
 
     $(document).on('click', '#forecast_btn', function () {
-        var year = $('#year').val();
+        var year = $('#selected_year').val();
         var veg = $('#commodity').val()
         if (year === "" || veg === "") {
             Swal.fire({
@@ -789,37 +795,37 @@
                                 $('#max_price').html(response.max_pred_price.toFixed(2) + '/kg');
                                 $('#prices_ave').html(response.prices_ave.toFixed(2) + '/kg');
 
-                                $('#mtr_ave').html(response.mtr_ave.toFixed(2) + '/kg');
-                                $('#mtr_max_val').html(response.mtr_max.toFixed(2) + '/kg');
-                                $('#mtr_min_val').html(response.mtr_min.toFixed(2) + '/kg');
+                                $('#mtr_ave').html('₱' + response.mtr_ave.toFixed(2) + '/kg');
+                                $('#mtr_max_val').html('₱' + response.mtr_max.toFixed(2) + '/kg');
+                                $('#mtr_min_val').html('₱' + response.mtr_min.toFixed(2) + '/kg');
 
-                                $('#pam_ave').html(response.pam_ave.toFixed(2) + '/kg');
-                                $('#pam_max_val').html(response.pam_max.toFixed(2) + '/kg');
-                                $('#pam_min_val').html(response.pam_min.toFixed(2) + '/kg');
+                                $('#pam_ave').html('₱' + response.pam_ave.toFixed(2) + '/kg');
+                                $('#pam_max_val').html('₱' + response.pam_max.toFixed(2) + '/kg');
+                                $('#pam_min_val').html('₱' + response.pam_min.toFixed(2) + '/kg');
 
-                                $('#riz_ave').html(response.riz_ave.toFixed(2) + '/kg');
-                                $('#riz_max_val').html(response.riz_max.toFixed(2) + '/kg');
-                                $('#riz_min_val').html(response.riz_min.toFixed(2) + '/kg');
+                                $('#riz_ave').html('₱' + response.riz_ave.toFixed(2) + '/kg');
+                                $('#riz_max_val').html('₱' + response.riz_max.toFixed(2) + '/kg');
+                                $('#riz_min_val').html('₱' + response.riz_min.toFixed(2) + '/kg');
 
-                                $('#cav_ave').html(response.cav_ave.toFixed(2) + '/kg');
-                                $('#cav_max_val').html(response.cav_max.toFixed(2) + '/kg');
-                                $('#cav_min_val').html(response.cav_min.toFixed(2) + '/kg');
+                                $('#cav_ave').html('₱' + response.cav_ave.toFixed(2) + '/kg');
+                                $('#cav_max_val').html('₱' + response.cav_max.toFixed(2) + '/kg');
+                                $('#cav_min_val').html('₱' + response.cav_min.toFixed(2) + '/kg');
 
-                                $('#lag_ave').html(response.lag_ave.toFixed(2) + '/kg');
-                                $('#lag_max_val').html(response.lag_max.toFixed(2) + '/kg');
-                                $('#lag_min_val').html(response.lag_min.toFixed(2) + '/kg');
+                                $('#lag_ave').html('₱' + response.lag_ave.toFixed(2) + '/kg');
+                                $('#lag_max_val').html('₱' + response.lag_max.toFixed(2) + '/kg');
+                                $('#lag_min_val').html('₱' + response.lag_min.toFixed(2) + '/kg');
 
-                                $('#bul_ave').html(response.bul_ave.toFixed(2) + '/kg');
-                                $('#bul_max_val').html(response.bul_max.toFixed(2) + '/kg');
-                                $('#bul_min_val').html(response.bul_min.toFixed(2) + '/kg');
+                                $('#bul_ave').html('₱' + response.bul_ave.toFixed(2) + '/kg');
+                                $('#bul_max_val').html('₱' + response.bul_max.toFixed(2) + '/kg');
+                                $('#bul_min_val').html('₱' + response.bul_min.toFixed(2) + '/kg');
 
                                 for (let i = 0; i < 12; i++) {
-                                    $('#mtr_' + i).html(response.mtr_data[i].toFixed(2) + '/kg');
-                                    $('#pam_' + i).html(response.pam_data[i].toFixed(2) + '/kg');
-                                    $('#riz_' + i).html(response.riz_data[i].toFixed(2) + '/kg');
-                                    $('#cav_' + i).html(response.cav_data[i].toFixed(2) + '/kg');
-                                    $('#lag_' + i).html(response.lag_data[i].toFixed(2) + '/kg');
-                                    $('#bul_' + i).html(response.bul_data[i].toFixed(2) + '/kg');
+                                    $('#mtr_' + i).html('₱' + response.mtr_data[i].toFixed(2) + '/kg');
+                                    $('#pam_' + i).html('₱' + response.pam_data[i].toFixed(2) + '/kg');
+                                    $('#riz_' + i).html('₱' + response.riz_data[i].toFixed(2) + '/kg');
+                                    $('#cav_' + i).html('₱' + response.cav_data[i].toFixed(2) + '/kg');
+                                    $('#lag_' + i).html('₱' + response.lag_data[i].toFixed(2) + '/kg');
+                                    $('#bul_' + i).html('₱' + response.bul_data[i].toFixed(2) + '/kg');
                                 }
 
                             }

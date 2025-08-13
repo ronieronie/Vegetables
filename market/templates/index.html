@@ -826,10 +826,10 @@
                                     email. We’re here to help and will get back to you as soon as possible.
                                 </p>
                                 <div class="input-group">
-                                    <input type="text" class="form-control bg-transparent text-fixed-white"
+                                    <input type="email" class="form-control bg-transparent text-fixed-white"
                                         placeholder="Enter your email" aria-label="Example text with button addon"
-                                        aria-describedby="button-addon2" />
-                                    <button class="btn btn-primary" type="button" id="button-addon2">
+                                        aria-describedby="button-addon2" id="email" required />
+                                    <button class="btn btn-primary" type="button" id="send_email">
                                         Submit
                                     </button>
                                 </div>
@@ -898,6 +898,41 @@
             </div>
         </div>
         <!-- End::app-content -->
+
+        <div class="modal fade" id="send_email_modal" tabindex="-1" aria-labelledby="addUserModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h6 class="modal-title" id="ModalLabel1">E-mail</h6>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="col-md-12">
+                            <div class="mb-3">
+                                <label class="form-label"><i class="bi bi-envelope-at"></i> E-mail <span
+                                        class="text-danger">*</span></label>
+                                <input type="email" class="form-control" placeholder="Employee Name"
+                                    name="employee_name" id="get_email" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label"><i class="bi bi-mailbox-flag"></i> Message <span
+                                        class="text-danger">*</span></label>
+                                <textarea type="text" class="form-control" placeholder="Employee Name"
+                                    name="employee_name" id="message"></textarea>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" id="submit_email_btn">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="scrollToTop">
@@ -931,6 +966,63 @@
 
     <!-- Sticky JS -->
     <script src="../static/js/sticky.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        $(document).on('click', '#send_email', function () {
+            var email = $('#email').val();
+            $('#get_email').val(email);
+            $('#send_email_modal').modal('show');
+        });
+
+        $(document).on('click', '#submit_email_btn', function () {
+            const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            var message = $('#message').val();
+            var get_email = $('#get_email').val();
+            if (get_email == '' || message == '') {
+                $('#send_email_modal').modal('hide');
+                Swal.fire({
+                    title: 'Warning!',
+                    text: 'Complete all required fields to proceed',
+                    icon: 'warning'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Your function here
+                        $('#send_email_modal').modal('show');
+                        $('#get_email').css('border', '1px solid red');
+                    }
+                });
+
+            }
+            else {
+                if (regex.test(get_email)) {
+                    $('#send_email_modal').modal('hide');
+                    Swal.fire({
+                        title: 'Sending Email',
+                        text: 'Message is sending, please wait..',
+                        allowOutsideClick: false,
+                        didOpen: () => {
+                            Swal.showLoading();
+                            setTimeout(() => {
+                                Swal.fire({
+                                    title: 'Thank you!',
+                                    text: 'Message sent successfully',
+                                    icon: 'success'
+                                })
+                            }, 2000);
+                        }
+                    });
+                    // You can proceed with form submission or other logic here
+                }
+                else {
+                    $('#send_email_modal').modal('show');
+                    $('#get_email').css('border', '1px solid red');
+                    $('#get_email').text("Invalid E-mail");
+                }
+
+            }
+        })
+    </script>
 </body>
 
 </html>

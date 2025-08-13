@@ -10,8 +10,8 @@ x = df.values
 y = df['price'].values
 x = np.delete(x,2,axis=1)
 
-from sklearn.linear_model import LinearRegression
-ml = LinearRegression()
+from sklearn.ensemble import RandomForestRegressor
+ml = RandomForestRegressor()
 ml.fit(x,y)
 
 pickle.dump(ml, open('model.pkl','wb'))
